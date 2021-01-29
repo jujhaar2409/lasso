@@ -1,8 +1,9 @@
 #include "coin.h"
 #include "lasso.h"
 
-void Coin::initCoin() {
-  coin_start_x = (PLAY_X_START+WINDOW_X)/2;
+void Coin::initCoin()
+{
+  coin_start_x = (PLAY_X_START + WINDOW_X) / 2;
   coin_start_y = PLAY_Y_HEIGHT;
   coin_circle.reset(coin_start_x, coin_start_y, COIN_SIZE);
   coin_circle.setColor(COLOR("gold"));
@@ -10,7 +11,8 @@ void Coin::initCoin() {
   addPart(&coin_circle);
 }
 
-void Coin::resetCoin() {
+void Coin::resetCoin()
+{
   double coin_speed = COIN_SPEED;
   double coin_angle_deg = COIN_ANGLE_DEG;
   coin_ax = 0;
