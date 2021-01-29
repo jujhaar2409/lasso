@@ -51,6 +51,7 @@ void Lasso::yank()
   {
     num_coins++;
     the_coin->resetCoin();
+    the_coin = NULL;
   }
 } // End Lasso::yank()
 

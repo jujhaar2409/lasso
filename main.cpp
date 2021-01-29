@@ -3,11 +3,53 @@
 #include "MovingObject.h"
 #include "lasso.h"
 #include "coin.h"
+#include "gui.h"
 
 using namespace simplecpp;
 
 main_program
 {
+      initCanvas("Lasso - Instructions", WINDOW_X, WINDOW_Y);
+      show_instructions();
+      for (;;)
+      {
+            XEvent e;
+            bool pendingEv = checkEvent(e);
+            if (pendingEv)
+            {
+                  char c = charFromEvent(e);
+                  if (c == 'n')
+                  {
+                        closeCanvas();
+                        break;
+                  }
+                  else if (c == 'q')
+                  {
+                        exit(0);
+                  }
+            }
+      }
+
+      initCanvas("Lasso - Choose mode", WINDOW_X, WINDOW_Y);
+      show_modes();
+      for (;;)
+      {
+            XEvent e;
+            bool pendingEv = checkEvent(e);
+            if (pendingEv)
+            {
+                  char c = charFromEvent(e);
+                  if (c == 'n')
+                  {
+                        closeCanvas();
+                        break;
+                  }
+                  else if (c == 'q')
+                  {
+                        exit(0);
+                  }
+            }
+      }
 
       initCanvas("Lasso", WINDOW_X, WINDOW_Y);
       int stepCount = 0;
