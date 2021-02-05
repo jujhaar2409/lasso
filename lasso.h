@@ -34,7 +34,7 @@
 #define INIT_RELEASE_SPEED 100
 
 #define COIN_SPEED 120
-#define COIN_ANGLE_DEG 90
+#define COIN_ANGLE_DEG 90 - (rand() % 50 - 20)
 
 #define LASSO_G 30
 #define COIN_G 30
