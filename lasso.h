@@ -6,7 +6,7 @@
 
 //#define WINDOW_X 1200
 //#define WINDOW_Y 960
-#define WINDOW_X 800
+#define WINDOW_X 1000
 #define WINDOW_Y 600
 
 #define STEP_TIME 0.05
