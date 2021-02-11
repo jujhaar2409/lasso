@@ -1,9 +1,10 @@
 # Lasso Project for CS101
 
-## Compile
+## Compile and run
 
 ```bash
-some command here
+s++ -o lasso -g **.cpp
+./lasso
 ```
 
 ## Additions made
