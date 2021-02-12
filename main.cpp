@@ -83,7 +83,8 @@ main_program
       double coin_angle_deg = COIN_ANGLE_DEG;
       double coin_ax = 0;
       double coin_ay = COIN_G;
-      Coin coin(coin_speed, coin_angle_deg, coin_ax, coin_ay, paused, rtheta);
+      char coin_color[] = "gold";
+      Coin coin(coin_speed, coin_angle_deg, coin_ax, coin_ay, paused, rtheta, coin_color);
 
       // After every COIN_GAP sec, make the coin jump
       double last_coin_jump_end = 0;
@@ -153,6 +154,7 @@ main_program
             }
 
             lasso.nextStep(stepTime);
+            // coin.set_acc((lasso.getXPos() - coin.getXPos() COIN_G), (rand() % COIN_G));
 
             coin.nextStep(stepTime);
             if (coin.isPaused())
@@ -163,7 +165,7 @@ main_program
                   }
             }
 
-            if (coin.getYPos() > PLAY_Y_HEIGHT)
+            if (coin.getYPos() > PLAY_Y_HEIGHT || coin.getXPos() > PLAY_X_WIDTH || coin.getYPos() < PLAY_Y_START || coin.getXPos() < PLAY_X_START)
             {
                   coin.resetCoin();
                   last_coin_jump_end = currTime;
