@@ -29,7 +29,8 @@ void Lasso::initLasso()
   addPart(&lasso_circle);
   addPart(&lasso_loop);
   lasso_looped = false;
-  the_coin = NULL;
+  // the_coins;
+  the_coins_len = 0;
   num_coins = 0;
 
   lasso_line.reset(lasso_start_x, lasso_start_y, lasso_start_x, lasso_start_y);
@@ -47,11 +48,16 @@ void Lasso::yank()
   lasso_loop.reset(lasso_start_x, lasso_start_y, LASSO_SIZE / 2);
   lasso_loop.setFill(true);
   lasso_looped = false;
-  if (the_coin != NULL)
+  if (the_coins_len != 0)
   {
-    num_coins++;
-    the_coin->resetCoin();
-    the_coin = NULL;
+    for (int i = 0; i < the_coins_len; i++)
+    {
+      Coin *the_coin = the_coins[i];
+      num_coins += the_coin->get_coin_reward();
+      the_coin->resetCoin();
+      the_coin = NULL;
+    }
+    the_coins_len = 0;
   }
 } // End Lasso::yank()
 
@@ -100,7 +106,7 @@ void Lasso::nextStep(double stepTime)
 {
   draw_lasso_band();
   MovingObject::nextStep(stepTime);
-  if (getYPos() > PLAY_Y_HEIGHT)
+  if (getYPos() > PLAY_Y_HEIGHT || getXPos() > PLAY_X_WIDTH)
   {
     yank();
   }
@@ -118,12 +124,20 @@ void Lasso::check_for_coin(Coin *coinPtr)
   double distance = sqrt((xdiff * xdiff) + (ydiff * ydiff));
   if (distance <= LASSO_RADIUS)
   {
-    the_coin = coinPtr;
-    the_coin->getAttachedTo(this);
+    if (coin_present(coinPtr))
+      return;
+    the_coins[the_coins_len] = coinPtr;
+    the_coins_len++;
+    coinPtr->getAttachedTo(this);
   }
 } // End Lasso::check_for_coin()
 
-bool Lasso::coin_present()
+bool Lasso::coin_present(Coin *coin)
 {
-  return (the_coin != NULL);
+  for (int i = 0; i < the_coins_len; i++)
+  {
+    if (coin == the_coins[i])
+      return true;
+  }
+  return false;
 }

@@ -4,6 +4,7 @@
 #include "lasso.h"
 #include "coin.h"
 #include "gui.h"
+#include <vector>
 
 using namespace simplecpp;
 
@@ -83,11 +84,25 @@ main_program
       double coin_angle_deg = COIN_ANGLE_DEG;
       double coin_ax = 0;
       double coin_ay = COIN_G;
-      char coin_color[] = "gold";
-      Coin coin(coin_speed, coin_angle_deg, coin_ax, coin_ay, paused, rtheta, coin_color);
+
+      int num_coins = 4;
+      Coin coin1(coin_speed, coin_angle_deg, coin_ax, coin_ay, paused, rtheta, 1);
+      Coin coin2(coin_speed, coin_angle_deg, coin_ax, coin_ay, paused, rtheta, 1);
+      Coin coin3(coin_speed, coin_angle_deg, coin_ax, coin_ay, paused, rtheta, 1);
+      Coin coin4(coin_speed, coin_angle_deg, coin_ax, coin_ay, paused, rtheta, 1);
+      vector<Coin *> coins;
+      coins.push_back(&coin1);
+      coins.push_back(&coin2);
+      coins.push_back(&coin3);
+      coins.push_back(&coin4);
 
       // After every COIN_GAP sec, make the coin jump
-      double last_coin_jump_end = 0;
+      // double last_coin_jump_end = 0;
+      double last_coin_jump_ends[num_coins];
+      for (int i = 0; i < num_coins; i++)
+      {
+            last_coin_jump_ends[i] = 0;
+      }
 
       // When t is pressed, throw lasso
       // If lasso within range, make coin stick
@@ -119,7 +134,10 @@ main_program
                         break;
                   case 'l':
                         lasso.loopit();
-                        lasso.check_for_coin(&coin);
+                        for (Coin *coin : coins)
+                        {
+                              lasso.check_for_coin(coin);
+                        }
                         wait(STEP_TIME * 5);
                         break;
                   case '[':
@@ -155,25 +173,27 @@ main_program
 
             lasso.nextStep(stepTime);
 
-            // testing magnetic attraction
-            if (!lasso.coin_present())
-                  coin.attract((MovingObject)lasso);
-            else
-                  coin.set_acc(0, COIN_G);
+            //* testing magnetic attraction
+            // if (!lasso.coin_present())
+            //       coin.attract((MovingObject)lasso);
 
-            coin.nextStep(stepTime);
-            if (coin.isPaused())
+            for (int i = 0; i < num_coins; i++)
             {
-                  if ((currTime - last_coin_jump_end) >= COIN_GAP)
+                  Coin *coin = coins[i];
+                  coin->nextStep(stepTime);
+                  if (coin->isPaused())
                   {
-                        coin.unpause();
+                        if ((currTime - last_coin_jump_ends[i]) >= COIN_GAP)
+                        {
+                              coin->unpause();
+                        }
                   }
-            }
 
-            if (coin.getYPos() > PLAY_Y_HEIGHT || coin.getXPos() > PLAY_X_WIDTH || coin.getYPos() < PLAY_Y_START || coin.getXPos() < PLAY_X_START)
-            {
-                  coin.resetCoin();
-                  last_coin_jump_end = currTime;
+                  if (coin->getYPos() > PLAY_Y_HEIGHT || coin->getXPos() > PLAY_X_WIDTH || coin->getYPos() < PLAY_Y_START || coin->getXPos() < PLAY_X_START)
+                  {
+                        coin->resetCoin();
+                        last_coin_jump_ends[i] = currTime;
+                  }
             }
 
             sprintf(coinScoreStr, "Coins: %d", lasso.getNumCoins());

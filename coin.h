@@ -2,7 +2,6 @@
 #define __COIN_H__
 
 #include "MovingObject.h"
-#include "utils.h"
 
 class Coin : public MovingObject
 {
@@ -12,26 +11,32 @@ class Coin : public MovingObject
   double release_angle_deg;
   double coin_ax;
   double coin_ay;
-  char coin_color[20];
+
+  int coin_type;
+  int coin_reward;
 
   // Moving parts
   Circle coin_circle;
 
 public:
-  Coin(double speed, double angle_deg, double argax, double argay, bool argpaused, bool rtheta, char color[]) : MovingObject(speed, angle_deg, argax, argay, argpaused, rtheta)
+  Coin(double speed, double angle_deg, double argax, double argay, bool argpaused, bool rtheta, int type) : MovingObject(speed, angle_deg, argax, argay, argpaused, rtheta)
   {
     release_speed = speed;
     release_angle_deg = angle_deg;
     coin_ax = argax;
     coin_ay = argay;
-    Utils::assign_char_array(coin_color, color);
+
+    coin_reward = 1;
+    coin_type = type;
     initCoin();
   }
 
   void initCoin();
   void resetCoin();
+
   void attract(MovingObject obj);
   void set_acc(int ax, int ay);
+  int get_coin_reward();
 }; // End class Coin
 
 #endif

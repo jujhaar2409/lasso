@@ -43,6 +43,8 @@
 #define LASSO_RADIUS 50
 #define COIN_SIZE 5
 
+#define MAX_COINS 10
+
 class Lasso : public MovingObject
 {
   double lasso_start_x;
@@ -62,7 +64,8 @@ class Lasso : public MovingObject
 
   // State info
   bool lasso_looped;
-  Coin *the_coin;
+  Coin *the_coins[MAX_COINS];
+  int the_coins_len;
   int num_coins;
 
   void initLasso();
@@ -87,7 +90,7 @@ public:
   void check_for_coin(Coin *coin);
   int getNumCoins() { return num_coins; }
 
-  bool coin_present();
+  bool coin_present(Coin *coin);
 }; // End class Lasso
 
 #endif
