@@ -154,7 +154,12 @@ main_program
             }
 
             lasso.nextStep(stepTime);
-            // coin.set_acc((lasso.getXPos() - coin.getXPos() COIN_G), (rand() % COIN_G));
+
+            // testing magnetic attraction
+            if (!lasso.coin_present())
+                  coin.attract((MovingObject)lasso);
+            else
+                  coin.set_acc(0, COIN_G);
 
             coin.nextStep(stepTime);
             if (coin.isPaused())

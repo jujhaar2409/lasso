@@ -30,8 +30,8 @@ public:
 
   void initCoin();
   void resetCoin();
+  void attract(MovingObject obj);
   void set_acc(int ax, int ay);
-
 }; // End class Coin
 
 #endif

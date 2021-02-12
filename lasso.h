@@ -87,6 +87,7 @@ public:
   void check_for_coin(Coin *coin);
   int getNumCoins() { return num_coins; }
 
+  bool coin_present();
 }; // End class Lasso
 
 #endif

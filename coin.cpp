@@ -26,3 +26,11 @@ void Coin::set_acc(int ax, int ay)
   set_ax(ax);
   set_ay(ay);
 }
+
+void Coin::attract(MovingObject obj)
+{
+  double disX = obj.getXPos() - getXPos();
+  double disY = obj.getYPos() - getYPos();
+  double dist = sqrt(disX * disX + disY * disY);
+  set_acc((disX / dist) * COIN_G, COIN_G + (2 * disY / dist) * COIN_G);
+}

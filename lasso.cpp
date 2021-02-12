@@ -122,3 +122,8 @@ void Lasso::check_for_coin(Coin *coinPtr)
     the_coin->getAttachedTo(this);
   }
 } // End Lasso::check_for_coin()
+
+bool Lasso::coin_present()
+{
+  return (the_coin != NULL);
+}
