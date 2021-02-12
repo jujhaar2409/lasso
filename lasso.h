@@ -36,8 +36,8 @@
 #define COIN_SPEED 120
 #define COIN_ANGLE_DEG 90 - (rand() % 50 - 20)
 
-#define LASSO_G 30
-#define COIN_G 30
+#define LASSO_G 50
+#define COIN_G 50
 
 #define LASSO_SIZE 10
 #define LASSO_RADIUS 50
