@@ -134,9 +134,9 @@ main_program
                         break;
                   case 'l':
                         lasso.loopit();
-                        for (Coin *coin : coins)
+                        for (int i = 0; i < num_coins; i++)
                         {
-                              lasso.check_for_coin(coin);
+                              lasso.check_for_coin(coins[i]);
                         }
                         wait(STEP_TIME * 5);
                         break;

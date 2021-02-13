@@ -10,6 +10,7 @@
 #define WINDOW_Y 600
 
 #define STEP_TIME 0.05
+// #define STEP_TIME 0.01
 
 #define PLAY_X_START 100
 #define PLAY_Y_START 0
