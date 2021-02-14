@@ -6,7 +6,7 @@
 
 //#define WINDOW_X 1200
 //#define WINDOW_Y 960
-#define WINDOW_X 1000
+#define WINDOW_X 800
 #define WINDOW_Y 600
 
 // #define STEP_TIME 0.05
@@ -35,23 +35,24 @@
 // #define MAX_RELEASE_SPEED 200
 // #define INIT_RELEASE_SPEED 100
 #define RELEASE_SPEED_STEP 40
-#define MIN_RELEASE_SPEED 200
-#define MAX_RELEASE_SPEED 600
-#define INIT_RELEASE_SPEED 350
+#define MIN_RELEASE_SPEED 400
+#define MAX_RELEASE_SPEED 900
+#define INIT_RELEASE_SPEED 700
 
 // #define COIN_SPEED 120
-#define COIN_SPEED 500
+#define COIN_SPEED 800
 #define COIN_ANGLE_DEG 90 - (rand() % 50 - 20)
 
 // #define LASSO_G 50
 // #define COIN_G 50
-#define LASSO_G 450
-#define COIN_G 400
+#define LASSO_G 800
+#define COIN_G 1000
 
 #define LASSO_SIZE 10
 #define LASSO_RADIUS 50
 #define COIN_SIZE 5
 
+// gives the max number of coins that can be in the lasso at once
 #define MAX_COINS 10
 
 class Lasso : public MovingObject

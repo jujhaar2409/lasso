@@ -192,7 +192,7 @@ main_program
                         }
                   }
 
-                  if (coin->getYPos() > PLAY_Y_HEIGHT || coin->getXPos() > PLAY_X_WIDTH || coin->getYPos() < PLAY_Y_START || coin->getXPos() < PLAY_X_START)
+                  if (coin->getYPos() > PLAY_Y_START + PLAY_Y_HEIGHT || coin->getXPos() > PLAY_X_START + PLAY_X_WIDTH || coin->getYPos() < PLAY_Y_START || coin->getXPos() < PLAY_X_START)
                   {
                         coin->resetCoin();
                         last_coin_jump_ends[i] = currTime;
