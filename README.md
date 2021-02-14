@@ -4,8 +4,14 @@
 
 ### Linux or MacOS
 
+#### with g++
+
 ```bash
-s++ -o lasso -g **.cpp
+g++ -o lasso **.cpp -Wall /Users/jujhaar/code/downloads/simplecpp/lib/libsprite.a -I/Users/jujhaar/code/downloads/simplecpp/include -I/opt/X11/include -L/opt/X11/lib -lX11 -std=c++11
+```
+
+```bash
+s++ -o lasso **.cpp
 ./lasso
 ```
 
