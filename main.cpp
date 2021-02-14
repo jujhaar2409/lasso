@@ -173,9 +173,12 @@ main_program
 
             lasso.nextStep(stepTime);
 
-            //* testing magnetic attraction
-            // if (!lasso.coin_present())
-            //       coin.attract((MovingObject)lasso);
+            //* test magnetic attraction
+            // for (int i = 0; i < num_coins; i++)
+            // {
+            //       if (!lasso.coin_present(coins[i]))
+            //             coins[i]->attract((MovingObject)lasso, 0.02);
+            // }
 
             for (int i = 0; i < num_coins; i++)
             {

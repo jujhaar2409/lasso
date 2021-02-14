@@ -34,7 +34,7 @@ public:
   void initCoin();
   void resetCoin();
 
-  void attract(MovingObject obj);
+  void attract(MovingObject obj, double scale);
   void set_acc(int ax, int ay);
   int get_coin_reward();
 }; // End class Coin

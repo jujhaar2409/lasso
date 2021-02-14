@@ -9,8 +9,8 @@
 #define WINDOW_X 1000
 #define WINDOW_Y 600
 
-#define STEP_TIME 0.05
-// #define STEP_TIME 0.01
+// #define STEP_TIME 0.05
+#define STEP_TIME 0.01
 
 #define PLAY_X_START 100
 #define PLAY_Y_START 0
@@ -22,23 +22,31 @@
 #define LASSO_BAND_LENGTH LASSO_X_OFFSET
 #define LASSO_THICKNESS 5
 
-#define COIN_GAP 1
+// #define COIN_GAP 1
+#define COIN_GAP 0.2
 
 #define RELEASE_ANGLE_STEP_DEG 5
 #define MIN_RELEASE_ANGLE_DEG 0
 #define MAX_RELEASE_ANGLE_DEG (360 - RELEASE_ANGLE_STEP_DEG)
 #define INIT_RELEASE_ANGLE_DEG 45
 
-#define RELEASE_SPEED_STEP 20
-#define MIN_RELEASE_SPEED 0
-#define MAX_RELEASE_SPEED 200
-#define INIT_RELEASE_SPEED 100
+// #define RELEASE_SPEED_STEP 20
+// #define MIN_RELEASE_SPEED 0
+// #define MAX_RELEASE_SPEED 200
+// #define INIT_RELEASE_SPEED 100
+#define RELEASE_SPEED_STEP 40
+#define MIN_RELEASE_SPEED 200
+#define MAX_RELEASE_SPEED 600
+#define INIT_RELEASE_SPEED 350
 
-#define COIN_SPEED 120
+// #define COIN_SPEED 120
+#define COIN_SPEED 500
 #define COIN_ANGLE_DEG 90 - (rand() % 50 - 20)
 
-#define LASSO_G 50
-#define COIN_G 50
+// #define LASSO_G 50
+// #define COIN_G 50
+#define LASSO_G 450
+#define COIN_G 400
 
 #define LASSO_SIZE 10
 #define LASSO_RADIUS 50
