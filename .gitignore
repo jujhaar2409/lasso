@@ -3,3 +3,5 @@ a.out
 .vscode
 lasso.dSYM
 .idea
+cmake-build-debug
+CMakeLists.txt

@@ -11,7 +11,7 @@ using namespace simplecpp;
 main_program
 {
       initCanvas("Lasso - Instructions", WINDOW_X, WINDOW_Y);
-      show_instructions();
+      GUI::show_instructions();
       for (;;)
       {
             XEvent e;
@@ -32,7 +32,7 @@ main_program
       }
 
       initCanvas("Lasso - Choose mode", WINDOW_X, WINDOW_Y);
-      show_modes();
+      GUI::show_modes();
       for (;;)
       {
             XEvent e;

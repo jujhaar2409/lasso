@@ -41,7 +41,7 @@
 
 // #define COIN_SPEED 120
 #define COIN_SPEED 800
-#define COIN_ANGLE_DEG 90 - (rand() % 50 - 20)
+#define COIN_ANGLE_DEG (90 - (rand() % 50 - 20))
 
 // #define LASSO_G 50
 // #define COIN_G 50
@@ -98,7 +98,7 @@ public:
 
   void nextStep(double t);
   void check_for_coin(Coin *coin);
-  int getNumCoins() { return num_coins; }
+  int getNumCoins() const { return num_coins; }
 
   bool coin_present(Coin *coin);
 }; // End class Lasso
