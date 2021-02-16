@@ -114,6 +114,7 @@ void Lasso::nextStep(double stepTime)
 
 void Lasso::check_for_coin(Coin *coinPtr)
 {
+    if (isPaused()) return;
   double lasso_x = getXPos();
   double lasso_y = getYPos();
   double coin_x = coinPtr->getXPos();

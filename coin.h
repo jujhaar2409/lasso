@@ -39,6 +39,8 @@ class Coin : public MovingObject
   // Moving parts
   Circle coin_circle;
 
+  void set_random_x();
+
   void init_type_prob();
   void init_type();
   void set_coin_color();

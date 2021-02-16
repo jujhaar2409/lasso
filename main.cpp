@@ -81,14 +81,13 @@ main_program
       paused = true;
       rtheta = true;
       double coin_speed = COIN_SPEED;
-      double coin_angle_deg = COIN_ANGLE_DEG;
       double coin_ax = 0;
       double coin_ay = COIN_G;
 
       int num_coins = 3;
-      Coin coin1(coin_speed, coin_angle_deg, coin_ax, coin_ay, paused, rtheta, 4);
-      Coin coin2(coin_speed, coin_angle_deg, coin_ax, coin_ay, paused, rtheta, 4);
-      Coin coin3(coin_speed, coin_angle_deg, coin_ax, coin_ay, paused, rtheta, 4);
+      Coin coin1(coin_speed, COIN_ANGLE_DEG, coin_ax, coin_ay, paused, rtheta, 4);
+      Coin coin2(coin_speed, COIN_ANGLE_DEG, coin_ax, coin_ay, paused, rtheta, 4);
+      Coin coin3(coin_speed, COIN_ANGLE_DEG, coin_ax, coin_ay, paused, rtheta, 4);
       vector<Coin *> coins;
       coins.push_back(&coin1);
       coins.push_back(&coin2);

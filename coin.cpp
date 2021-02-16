@@ -1,6 +1,5 @@
 #include "coin.h"
 #include "lasso.h"
-#include <random>
 
 namespace my_vector_utils
 {
@@ -15,7 +14,9 @@ namespace my_vector_utils
 
 void Coin::initCoin()
 {
-  coin_start_x = PLAY_X_START + PLAY_X_WIDTH * 0.2 + (rand() % 20) / 20.0 * PLAY_X_WIDTH * 0.7;
+  // randomize position of coin
+  set_random_x();
+
   coin_start_y = PLAY_Y_HEIGHT;
   coin_circle.reset(coin_start_x, coin_start_y, COIN_SIZE);
 
@@ -38,7 +39,8 @@ void Coin::resetCoin()
   set_coin_color();
 
   // randomize position of coin
-  coin_start_x = PLAY_X_START + PLAY_X_WIDTH * 0.2 + (rand() % 20) / 20.0 * PLAY_X_WIDTH * 0.7;
+    set_random_x();
+
   reset_all(coin_start_x, coin_start_y, coin_speed, coin_angle_deg, coin_ax, coin_ay, paused, rtheta);
 }
 
@@ -113,10 +115,7 @@ void Coin::init_type_prob()
 
 void Coin::init_type()
 {
-  std::random_device rd;
-  std::mt19937 mt(rd());
-  std::uniform_real_distribution<double> dist(0.0, my_vector_utils::sum(coin_type_prob));
-  int val = dist(mt);
+  int val = my_random::get_random_in_range(0.0, my_vector_utils::sum(coin_type_prob));
 
   int sum = 0;
   for (int i = 0; i < coin_type_prob.size(); i++)
@@ -153,4 +152,9 @@ void Coin::set_coin_color()
     //* Magnet Coin
     coin_circle.setColor(COLOR(255, 255, 0));
   }
+}
+
+void Coin::set_random_x()
+{
+  coin_start_x = my_random::get_random_in_range(PLAY_X_START + PLAY_X_WIDTH * 0.2, PLAY_X_START + PLAY_X_WIDTH * 0.9);
 }

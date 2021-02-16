@@ -3,6 +3,7 @@
 
 #include "MovingObject.h"
 #include "coin.h"
+#include "random.h"
 
 //#define WINDOW_X 1200
 //#define WINDOW_Y 960
@@ -41,7 +42,7 @@
 
 // #define COIN_SPEED 120
 #define COIN_SPEED 800
-#define COIN_ANGLE_DEG (90 - (rand() % 50 - 20))
+#define COIN_ANGLE_DEG (my_random::get_random_in_range(60, 110))
 
 // #define LASSO_G 50
 // #define COIN_G 50
@@ -89,8 +90,8 @@ public:
     lasso_ax = argax;
     lasso_ay = argay;
 
-//    magnetic = true;
-     magnetic = false;
+    //    magnetic = true;
+    magnetic = false;
 
     initLasso();
   }
