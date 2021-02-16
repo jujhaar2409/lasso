@@ -1,7 +1,5 @@
 #include <simplecpp>
 #include "lasso.h"
-#include <vector>
-#include <string>
 #include "gui.h"
 
 void GUI::show_instructions()

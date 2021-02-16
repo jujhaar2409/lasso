@@ -24,7 +24,7 @@ void Coin::resetCoin()
   reset_all(coin_start_x, coin_start_y, coin_speed, coin_angle_deg, coin_ax, coin_ay, paused, rtheta);
 }
 
-void Coin::set_acc(int ax, int ay)
+void Coin::set_acc(double ax, double ay)
 {
   set_ax(ax);
   set_ay(ay);

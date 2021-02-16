@@ -77,6 +77,7 @@ class Lasso : public MovingObject
   Coin *the_coins[MAX_COINS];
   int the_coins_len;
   int num_coins;
+  bool magnetic;
 
   void initLasso();
 
@@ -87,6 +88,7 @@ public:
     release_angle_deg = angle_deg;
     lasso_ax = argax;
     lasso_ay = argay;
+    magnetic = false;
     initLasso();
   }
 
@@ -100,6 +102,8 @@ public:
   void check_for_coin(Coin *coin);
   int getNumCoins() const { return num_coins; }
 
+  bool get_magnetic();
+  void set_magnetic(bool);
   bool coin_present(Coin *coin);
 }; // End class Lasso
 

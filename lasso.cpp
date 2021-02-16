@@ -1,8 +1,6 @@
 #include <simplecpp>
-#include <string>
 #include "MovingObject.h"
 #include "lasso.h"
-#include "coin.h"
 
 using namespace simplecpp;
 
@@ -55,7 +53,7 @@ void Lasso::yank()
       Coin *the_coin = the_coins[i];
       num_coins += the_coin->get_coin_reward();
       the_coin->resetCoin();
-      the_coin = NULL;
+      the_coins[i] = nullptr;
     }
     the_coins_len = 0;
   }
@@ -140,4 +138,14 @@ bool Lasso::coin_present(Coin *coin)
       return true;
   }
   return false;
+}
+
+bool Lasso::get_magnetic()
+{
+  return magnetic;
+}
+
+void Lasso::set_magnetic(bool magnetic_val)
+{
+  magnetic = magnetic_val;
 }
