@@ -52,6 +52,7 @@ void Lasso::yank()
     {
       Coin *the_coin = the_coins[i];
       num_coins += the_coin->get_coin_reward();
+      if (the_coin->makes_magnetic()) magnetic = true;
       the_coin->resetCoin();
       the_coins[i] = nullptr;
     }

@@ -85,16 +85,14 @@ main_program
       double coin_ax = 0;
       double coin_ay = COIN_G;
 
-      int num_coins = 4;
-      Coin coin1(coin_speed, coin_angle_deg, coin_ax, coin_ay, paused, rtheta, 1);
-      Coin coin2(coin_speed, coin_angle_deg, coin_ax, coin_ay, paused, rtheta, 1);
-      Coin coin3(coin_speed, coin_angle_deg, coin_ax, coin_ay, paused, rtheta, 1);
-      Coin coin4(coin_speed, coin_angle_deg, coin_ax, coin_ay, paused, rtheta, 1);
+      int num_coins = 3;
+      Coin coin1(coin_speed, coin_angle_deg, coin_ax, coin_ay, paused, rtheta, 4);
+      Coin coin2(coin_speed, coin_angle_deg, coin_ax, coin_ay, paused, rtheta, 4);
+      Coin coin3(coin_speed, coin_angle_deg, coin_ax, coin_ay, paused, rtheta, 4);
       vector<Coin *> coins;
       coins.push_back(&coin1);
       coins.push_back(&coin2);
       coins.push_back(&coin3);
-      coins.push_back(&coin4);
 
       // After every COIN_GAP sec, make the coin jump
       // double last_coin_jump_end = 0;
@@ -173,12 +171,14 @@ main_program
 
             lasso.nextStep(stepTime);
 
-            //* test magnetic attraction
-            // for (int i = 0; i < num_coins; i++)
-            // {
-            //       if (!lasso.coin_present(coins[i]))
-            //             coins[i]->attract((MovingObject)lasso, 0.02);
-            // }
+            if (lasso.get_magnetic())
+            {
+                  for (int i = 0; i < num_coins; i++)
+                  {
+                        if (!lasso.coin_present(coins[i]))
+                              coins[i]->attract(&lasso, 0.02);
+                  }
+            }
 
             for (int i = 0; i < num_coins; i++)
             {

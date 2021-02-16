@@ -88,7 +88,10 @@ public:
     release_angle_deg = angle_deg;
     lasso_ax = argax;
     lasso_ay = argay;
-    magnetic = false;
+
+//    magnetic = true;
+     magnetic = false;
+
     initLasso();
   }
 
