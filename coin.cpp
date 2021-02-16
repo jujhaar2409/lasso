@@ -1,5 +1,6 @@
 #include "coin.h"
-#include "lasso.h"
+#include "constants.h"
+#include "random.h"
 
 namespace my_vector_utils
 {
@@ -39,7 +40,7 @@ void Coin::resetCoin()
   set_coin_color();
 
   // randomize position of coin
-    set_random_x();
+  set_random_x();
 
   reset_all(coin_start_x, coin_start_y, coin_speed, coin_angle_deg, coin_ax, coin_ay, paused, rtheta);
 }

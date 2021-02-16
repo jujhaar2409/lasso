@@ -1,5 +1,5 @@
 #include <simplecpp>
-#include "lasso.h"
+#include "constants.h"
 #include "gui.h"
 
 void GUI::show_instructions()
