@@ -2,13 +2,16 @@
 #include "lasso.h"
 #include <random>
 
-namespace my_vector_utils {
-    int sum(const vector<int>& vec) {
-        int sum = 0;
-        for (int i : vec) sum += i;
-        return sum;
-    }
-}
+namespace my_vector_utils
+{
+  int sum(const vector<int> &vec)
+  {
+    int sum = 0;
+    for (int i : vec)
+      sum += i;
+    return sum;
+  }
+} // namespace my_vector_utils
 
 void Coin::initCoin()
 {
@@ -60,8 +63,8 @@ int Coin::get_coin_reward() const
 
 int Coin::makes_magnetic() const
 {
-    // type of magnetic coin is 2
-    return coin_type == 2;
+  // type of magnetic coin is 2
+  return coin_type == 2;
 }
 
 void Coin::init_type_prob()
@@ -108,38 +111,46 @@ void Coin::init_type_prob()
   }
 }
 
-void Coin::init_type() {
-    std::random_device rd;
-    std::mt19937 mt(rd());
-    std::uniform_real_distribution<double> dist(0.0, my_vector_utils::sum(coin_type_prob));
-    int val = dist(mt);
+void Coin::init_type()
+{
+  std::random_device rd;
+  std::mt19937 mt(rd());
+  std::uniform_real_distribution<double> dist(0.0, my_vector_utils::sum(coin_type_prob));
+  int val = dist(mt);
 
-    int sum = 0;
-    for (int  i = 0 ; i < coin_type_prob.size(); i++) {
-        if (val <= sum + coin_type_prob[i]){
-            coin_type = coin_types[i];
-            coin_reward = 2 - coin_type;
-            return;
-        }
-        sum += coin_type_prob[i];
+  int sum = 0;
+  for (int i = 0; i < coin_type_prob.size(); i++)
+  {
+    if (val <= sum + coin_type_prob[i])
+    {
+      coin_type = coin_types[i];
+      coin_reward = 2 - coin_type;
+      return;
     }
+    sum += coin_type_prob[i];
+  }
 }
 
-void Coin::set_coin_color() {
-    if (coin_type == 0) {
-        //* Bonus Coin
-        coin_circle.setColor(COLOR(255,0,0));
-    }
-    else if (coin_type == 1) {
-        //* Regular Coin
-        coin_circle.setColor(COLOR(0,0,255));
-    }
-    else if (coin_type == 2) {
-        //* Magnet Coin
-        coin_circle.setColor(COLOR(0,255,0));
-    }
-    else if (coin_type == 3) {
-        //* Magnet Coin
-        coin_circle.setColor(COLOR(255,255,0));
-    }
+void Coin::set_coin_color()
+{
+  if (coin_type == 0)
+  {
+    //* Bonus Coin
+    coin_circle.setColor(COLOR(255, 0, 0));
+  }
+  else if (coin_type == 1)
+  {
+    //* Regular Coin
+    coin_circle.setColor(COLOR(0, 0, 255));
+  }
+  else if (coin_type == 2)
+  {
+    //* Magnet Coin
+    coin_circle.setColor(COLOR(0, 255, 0));
+  }
+  else if (coin_type == 3)
+  {
+    //* Magnet Coin
+    coin_circle.setColor(COLOR(255, 255, 0));
+  }
 }
