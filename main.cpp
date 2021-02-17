@@ -68,15 +68,16 @@ main_program
       Lasso lasso(release_speed, release_angle_deg, lasso_ax, lasso_ay, paused, rtheta);
 
       Line b1(0, PLAY_Y_HEIGHT, WINDOW_X, PLAY_Y_HEIGHT);
-      b1.setColor(COLOR(BLUE));
+      b1.setColor(COLOR(LIGHT_GRAY));
       Line b2(PLAY_X_START, 0, PLAY_X_START, WINDOW_Y);
-      b2.setColor(COLOR(BLUE));
+      b2.setColor(COLOR(LIGHT_GRAY));
 
-      string msg("Cmd: _");
-      Text charPressed(PLAY_X_START + 50, PLAY_Y_HEIGHT + 20, msg);
+//      string msg("Cmd: _");
+//      Text charPressed(PLAY_X_START + 50, PLAY_Y_HEIGHT + 20, msg);
       char coinScoreStr[256];
       sprintf(coinScoreStr, "Coins: %d", lasso.getNumCoins());
-      Text coinScore(PLAY_X_START + 50, PLAY_Y_HEIGHT + 50, coinScoreStr);
+      Text coinScore(PLAY_X_START + 75, PLAY_Y_HEIGHT + 50, coinScoreStr);
+      coinScore.setColor(COLOR(GRAY));
 
       paused = true;
       rtheta = true;
@@ -119,8 +120,8 @@ main_program
             if (pendingEv)
             {
                   char c = charFromEvent(e);
-                  msg[msg.length() - 1] = c;
-                  charPressed.setMessage(msg);
+//                  msg[msg.length() - 1] = c;
+//                  charPressed.setMessage(msg);
                   switch (c)
                   {
                   case 't':
