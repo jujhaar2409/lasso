@@ -71,8 +71,8 @@ main_program
       Line b2(PLAY_X_START, 0, PLAY_X_START, WINDOW_Y);
       b2.setColor(COLOR(LIGHT_GRAY));
 
-//      string msg("Cmd: _");
-//      Text charPressed(PLAY_X_START + 50, PLAY_Y_HEIGHT + 20, msg);
+      //      string msg("Cmd: _");
+      //      Text charPressed(PLAY_X_START + 50, PLAY_Y_HEIGHT + 20, msg);
       char coinScoreStr[256];
       sprintf(coinScoreStr, "Coins: %d", lasso.getNumCoins());
       Text coinScore(PLAY_X_START + 75, PLAY_Y_HEIGHT + 50, coinScoreStr);
@@ -119,8 +119,8 @@ main_program
             if (pendingEv)
             {
                   char c = charFromEvent(e);
-//                  msg[msg.length() - 1] = c;
-//                  charPressed.setMessage(msg);
+                  //                  msg[msg.length() - 1] = c;
+                  //                  charPressed.setMessage(msg);
                   switch (c)
                   {
                   case 't':
