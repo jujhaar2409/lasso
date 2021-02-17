@@ -68,9 +68,9 @@ main_program
       Lasso lasso(release_speed, release_angle_deg, lasso_ax, lasso_ay, paused, rtheta);
 
       Line b1(0, PLAY_Y_HEIGHT, WINDOW_X, PLAY_Y_HEIGHT);
-      b1.setColor(COLOR("blue"));
+      b1.setColor(COLOR(BLUE));
       Line b2(PLAY_X_START, 0, PLAY_X_START, WINDOW_Y);
-      b2.setColor(COLOR("blue"));
+      b2.setColor(COLOR(BLUE));
 
       string msg("Cmd: _");
       Text charPressed(PLAY_X_START + 50, PLAY_Y_HEIGHT + 20, msg);

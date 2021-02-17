@@ -136,22 +136,22 @@ void Coin::set_coin_color()
   if (coin_type == 0)
   {
     //* Bonus Coin
-    coin_circle.setColor(COLOR(255, 0, 0));
+    coin_circle.setColor(COLOR(RED));
   }
   else if (coin_type == 1)
   {
     //* Regular Coin
-    coin_circle.setColor(COLOR(0, 0, 255));
+    coin_circle.setColor(COLOR(BLUE));
   }
   else if (coin_type == 2)
   {
     //* Magnet Coin
-    coin_circle.setColor(COLOR(0, 255, 0));
+    coin_circle.setColor(COLOR(GREEN));
   }
   else if (coin_type == 3)
   {
     //* Magnet Coin
-    coin_circle.setColor(COLOR(255, 255, 0));
+    coin_circle.setColor(COLOR(YELLOW));
   }
 }
 

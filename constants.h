@@ -48,3 +48,12 @@
 
 // gives the max number of coins that can be in the lasso at once
 #define MAX_COINS 10
+
+// COLORS definition
+#define BLACK 0, 0, 0
+#define RED 255, 0, 0
+#define BLUE 0, 0, 255
+#define GREEN 0, 255, 0
+#define YELLOW 255, 255, 0
+#define BROWN 100, 100, 0
+#define BLUE_VIOLET 100, 0, 200

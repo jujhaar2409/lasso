@@ -19,10 +19,10 @@ void Lasso::initLasso()
   lasso_start_x = (PLAY_X_START + LASSO_X_OFFSET);
   lasso_start_y = (PLAY_Y_HEIGHT - LASSO_Y_HEIGHT);
   lasso_circle.reset(lasso_start_x, lasso_start_y, LASSO_SIZE);
-  lasso_circle.setColor(COLOR("red"));
+  lasso_circle.setColor(COLOR(RED));
   lasso_circle.setFill(true);
   lasso_loop.reset(lasso_start_x, lasso_start_y, LASSO_SIZE / 2);
-  lasso_loop.setColor(COLOR("brown"));
+  lasso_loop.setColor(COLOR(BROWN));
   lasso_loop.setFill(true);
   addPart(&lasso_circle);
   addPart(&lasso_loop);
@@ -32,9 +32,9 @@ void Lasso::initLasso()
   num_coins = 0;
 
   lasso_line.reset(lasso_start_x, lasso_start_y, lasso_start_x, lasso_start_y);
-  lasso_line.setColor(COLOR("brown"));
+  lasso_line.setColor(COLOR(BROWN));
 
-  lasso_band.setColor(COLOR("BlueViolet"));
+  lasso_band.setColor(COLOR(BLUE_VIOLET));
   draw_lasso_band();
 
 } // End Lasso::initLasso()
@@ -52,7 +52,8 @@ void Lasso::yank()
     {
       Coin *the_coin = the_coins[i];
       num_coins += the_coin->get_coin_reward();
-      if (the_coin->makes_magnetic()) magnetic = true;
+      if (the_coin->makes_magnetic())
+        magnetic = true;
       the_coin->resetCoin();
       the_coins[i] = nullptr;
     }
@@ -105,7 +106,7 @@ void Lasso::nextStep(double stepTime)
 {
   draw_lasso_band();
   MovingObject::nextStep(stepTime);
-  if (getYPos() > PLAY_Y_START+ PLAY_Y_HEIGHT || getXPos() >PLAY_X_START + PLAY_X_WIDTH)
+  if (getYPos() > PLAY_Y_START + PLAY_Y_HEIGHT || getXPos() > PLAY_X_START + PLAY_X_WIDTH)
   {
     yank();
   }
@@ -114,7 +115,8 @@ void Lasso::nextStep(double stepTime)
 
 void Lasso::check_for_coin(Coin *coinPtr)
 {
-    if (isPaused()) return;
+  if (isPaused())
+    return;
   double lasso_x = getXPos();
   double lasso_y = getYPos();
   double coin_x = coinPtr->getXPos();

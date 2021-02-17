@@ -20,7 +20,7 @@ void GUI::show_instructions()
 
     Text text(WINDOW_X / 2.0, 50, "Lasso - Instructions");
 
-    text.setColor(COLOR("black"));
+    text.setColor(COLOR(BLACK));
     text.imprint();
 
     text.move(0, 50);
@@ -47,7 +47,7 @@ void GUI::show_modes()
 
     Text text(WINDOW_X / 2.0, 50, "Lasso - Instructions");
 
-    text.setColor(COLOR("black"));
+    text.setColor(COLOR(BLACK));
     text.imprint();
 
     text.move(0, 50);
