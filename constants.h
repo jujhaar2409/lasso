@@ -52,8 +52,26 @@
 // COLORS definition
 #define BLACK 0, 0, 0
 #define RED 255, 0, 0
+#define BRIGHT_RED 255, 68, 51
+#define DARK_RED 124, 48, 48
 #define BLUE 0, 0, 255
 #define GREEN 0, 255, 0
 #define YELLOW 255, 255, 0
-#define BROWN 100, 100, 0
+#define LIGHT_GRAY 211, 211, 211
+#define GRAY 128, 128, 128
+#define BROWN 139, 69, 19
 #define BLUE_VIOLET 100, 0, 200
+#define SILVER 192, 192, 192
+#define GOLD 255, 192, 0
+#define STEEL_BLUE 70, 130, 180
+
+// ITEM COLOR definitions
+#define LASSO_CIRCLE_COLOR DARK_RED
+#define LASSO_LOOP_COLOR BROWN
+#define LASSO_LINE_COLOR BROWN
+#define LASSO_BAND_COLOR LIGHT_GRAY
+
+#define BONUS_COIN_COLOR GOLD
+#define REGULAR_COIN_COLOR SILVER
+#define MAGNET_COIN_COLOR STEEL_BLUE
+#define BOMB_COIN_COLOR BRIGHT_RED

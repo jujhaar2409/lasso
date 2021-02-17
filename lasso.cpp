@@ -19,10 +19,10 @@ void Lasso::initLasso()
   lasso_start_x = (PLAY_X_START + LASSO_X_OFFSET);
   lasso_start_y = (PLAY_Y_HEIGHT - LASSO_Y_HEIGHT);
   lasso_circle.reset(lasso_start_x, lasso_start_y, LASSO_SIZE);
-  lasso_circle.setColor(COLOR(RED));
+  lasso_circle.setColor(COLOR(LASSO_CIRCLE_COLOR));
   lasso_circle.setFill(true);
   lasso_loop.reset(lasso_start_x, lasso_start_y, LASSO_SIZE / 2);
-  lasso_loop.setColor(COLOR(BROWN));
+  lasso_loop.setColor(COLOR(LASSO_LOOP_COLOR));
   lasso_loop.setFill(true);
   addPart(&lasso_circle);
   addPart(&lasso_loop);
@@ -32,9 +32,9 @@ void Lasso::initLasso()
   num_coins = 0;
 
   lasso_line.reset(lasso_start_x, lasso_start_y, lasso_start_x, lasso_start_y);
-  lasso_line.setColor(COLOR(BROWN));
+  lasso_line.setColor(COLOR(LASSO_LINE_COLOR));
 
-  lasso_band.setColor(COLOR(BLUE_VIOLET));
+  lasso_band.setColor(COLOR(LASSO_BAND_COLOR));
   draw_lasso_band();
 
 } // End Lasso::initLasso()
