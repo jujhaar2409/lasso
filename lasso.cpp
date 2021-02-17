@@ -105,7 +105,7 @@ void Lasso::nextStep(double stepTime)
 {
   draw_lasso_band();
   MovingObject::nextStep(stepTime);
-  if (getYPos() > PLAY_Y_HEIGHT || getXPos() > PLAY_X_WIDTH)
+  if (getYPos() > PLAY_Y_START+ PLAY_Y_HEIGHT || getXPos() >PLAY_X_START + PLAY_X_WIDTH)
   {
     yank();
   }
