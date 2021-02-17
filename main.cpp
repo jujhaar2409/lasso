@@ -1,6 +1,5 @@
 #include <simplecpp>
 #include <string>
-#include "MovingObject.h"
 #include "lasso.h"
 #include "coin.h"
 #include "gui.h"
