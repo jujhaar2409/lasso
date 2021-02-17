@@ -53,6 +53,12 @@ main_program
       }
 
       initCanvas("Lasso", WINDOW_X, WINDOW_Y);
+
+      // Set background
+      Rectangle bg(WINDOW_X / 2, WINDOW_Y / 2, WINDOW_X * 1.2, WINDOW_Y * 1.2);
+      bg.setColor(COLOR(CANVAS_BG_COLOR));
+      bg.setFill(true);
+
       int stepCount = 0;
       float stepTime = STEP_TIME;
       float runTime = -1; // sec; -ve means infinite
@@ -68,16 +74,16 @@ main_program
       Lasso lasso(release_speed, release_angle_deg, lasso_ax, lasso_ay, paused, rtheta);
 
       Line b1(0, PLAY_Y_HEIGHT, WINDOW_X, PLAY_Y_HEIGHT);
-      b1.setColor(COLOR(LIGHT_GRAY));
+      b1.setColor(COLOR(LIGHT_BROWN));
       Line b2(PLAY_X_START, 0, PLAY_X_START, WINDOW_Y);
-      b2.setColor(COLOR(LIGHT_GRAY));
+      b2.setColor(COLOR(LIGHT_BROWN));
 
-//      string msg("Cmd: _");
-//      Text charPressed(PLAY_X_START + 50, PLAY_Y_HEIGHT + 20, msg);
+      //      string msg("Cmd: _");
+      //      Text charPressed(PLAY_X_START + 50, PLAY_Y_HEIGHT + 20, msg);
       char coinScoreStr[256];
       sprintf(coinScoreStr, "Coins: %d", lasso.getNumCoins());
       Text coinScore(PLAY_X_START + 75, PLAY_Y_HEIGHT + 50, coinScoreStr);
-      coinScore.setColor(COLOR(GRAY));
+      coinScore.setColor(COLOR(BROWN));
 
       paused = true;
       rtheta = true;
@@ -120,8 +126,8 @@ main_program
             if (pendingEv)
             {
                   char c = charFromEvent(e);
-//                  msg[msg.length() - 1] = c;
-//                  charPressed.setMessage(msg);
+                  //                  msg[msg.length() - 1] = c;
+                  //                  charPressed.setMessage(msg);
                   switch (c)
                   {
                   case 't':
