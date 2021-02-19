@@ -3,8 +3,9 @@
 #define WINDOW_X 800
 #define WINDOW_Y 600
 
+#define SCALE_FACTOR (10)
 // #define STEP_TIME 0.05
-#define STEP_TIME 0.01
+#define STEP_TIME (0.01 / SCALE_FACTOR)
 
 #define PLAY_X_START 100
 #define PLAY_Y_START 0
@@ -17,7 +18,7 @@
 #define LASSO_THICKNESS 5
 
 // #define COIN_GAP 1
-#define COIN_GAP 0.2
+#define COIN_GAP (0.2 / SCALE_FACTOR)
 
 #define RELEASE_ANGLE_STEP_DEG 5
 #define MIN_RELEASE_ANGLE_DEG 0
@@ -28,19 +29,19 @@
 // #define MIN_RELEASE_SPEED 0
 // #define MAX_RELEASE_SPEED 200
 // #define INIT_RELEASE_SPEED 100
-#define RELEASE_SPEED_STEP 40
-#define MIN_RELEASE_SPEED 400
-#define MAX_RELEASE_SPEED 900
-#define INIT_RELEASE_SPEED 700
+#define RELEASE_SPEED_STEP (40 * SCALE_FACTOR)
+#define MIN_RELEASE_SPEED (400 * SCALE_FACTOR)
+#define MAX_RELEASE_SPEED (900*SCALE_FACTOR)
+#define INIT_RELEASE_SPEED (700* SCALE_FACTOR)
 
 // #define COIN_SPEED 120
-#define COIN_SPEED 800
+#define COIN_SPEED (800 * SCALE_FACTOR)
 #define COIN_ANGLE_DEG (my_random::get_random_in_range(60, 110))
 
 // #define LASSO_G 50
 // #define COIN_G 50
-#define LASSO_G 800
-#define COIN_G 1000
+#define LASSO_G (800 *SCALE_FACTOR * SCALE_FACTOR)
+#define COIN_G (1000 * SCALE_FACTOR* SCALE_FACTOR)
 
 #define LASSO_SIZE 10
 #define LASSO_RADIUS 50

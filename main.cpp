@@ -80,7 +80,7 @@ main_program
       //      string msg("Cmd: _");
       //      Text charPressed(PLAY_X_START + 50, PLAY_Y_HEIGHT + 20, msg);
       char coinScoreStr[256];
-      sprintf(coinScoreStr, "Coins: %d", lasso.getNumCoins());
+      sprintf(coinScoreStr, "Score: %d", lasso.getNumCoins());
       Text coinScore(PLAY_X_START + 75, PLAY_Y_HEIGHT + 50, coinScoreStr);
       coinScore.setColor(COLOR(BROWN));
 
@@ -113,7 +113,12 @@ main_program
 
       for (;;)
       {
-            if ((runTime > 0) && (currTime > runTime))
+
+          // learnt from: https://www.cse.iitb.ac.in/~ranade/simplecpp/raagmalaa/car.cpp
+          // stops rendering after each change
+          beginFrame();
+
+          if ((runTime > 0) && (currTime > runTime))
             {
                   break;
             }
@@ -208,6 +213,10 @@ main_program
             stepCount++;
             currTime += stepTime;
             wait(stepTime);
+
+          // learnt from: https://www.cse.iitb.ac.in/~ranade/simplecpp/raagmalaa/car.cpp
+          // renders changes all at once
+          endFrame();
       } // End for(;;)
 
       wait(3);
