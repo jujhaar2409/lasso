@@ -2,8 +2,7 @@
 #include "constants.h"
 #include "gui.h"
 
-void GUI::show_instructions()
-{
+void GUI::show_instructions() {
     vector<string> commands;
     commands.emplace_back("+/= and -");
     commands.emplace_back("[ and ]");
@@ -15,7 +14,8 @@ void GUI::show_instructions()
     instructions.emplace_back("Increase and decrease the speed of the lasso respectively");
     instructions.emplace_back("Change the angle of the lasso");
     instructions.emplace_back("Throws the lasso");
-    instructions.emplace_back("'loops' the lasso, which means that the coin can be caught at this moment, if it is within range");
+    instructions.emplace_back(
+            "'loops' the lasso, which means that the coin can be caught at this moment, if it is within range");
     instructions.emplace_back("'yanks' the lasso, brings lasso back to starting position");
 
     Text text(WINDOW_X / 2.0, 50, "Lasso - Instructions");
@@ -31,8 +31,7 @@ void GUI::show_instructions()
     show_list_on_canvas(commands, instructions, text);
 };
 
-void GUI::show_modes()
-{
+void GUI::show_modes() {
     vector<string> modes;
     modes.emplace_back("Press 1: Arcade Mode");
     modes.emplace_back("Press 2: Bomb Mode");
@@ -43,7 +42,8 @@ void GUI::show_modes()
     rules.emplace_back("Collect the most number of coins that you can");
     rules.emplace_back("Beware of the bombs as they provide a score reduction");
     rules.emplace_back("Collect magnets to attract more coins");
-    rules.emplace_back("Only a true braveheart should choose this mode, with both bombs and magnets, things can get dicey very fast ;)");
+    rules.emplace_back(
+            "Only a true braveheart should choose this mode, with both bombs and magnets, things can get dicey very fast ;)");
 
     Text text(WINDOW_X / 2.0, 50, "Lasso - Instructions");
 
@@ -58,10 +58,8 @@ void GUI::show_modes()
     show_list_on_canvas(modes, rules, text);
 };
 
-void GUI::show_list_on_canvas(vector<string> headings, vector<string> content, Text &text)
-{
-    for (int i = 0; i < headings.size(); i++)
-    {
+void GUI::show_list_on_canvas(vector<string> headings, vector<string> content, Text &text) {
+    for (int i = 0; i < headings.size(); i++) {
         text.move(0, 50);
 
         text.setMessage(headings[i]);
@@ -73,10 +71,8 @@ void GUI::show_list_on_canvas(vector<string> headings, vector<string> content, T
     }
 }
 
-void GUI::wrap_text(string str, int maxlen, int linespace, Text &text)
-{
-    if (str.length() > maxlen)
-    {
+void GUI::wrap_text(string str, int maxlen, int linespace, Text &text) {
+    if (str.length() > maxlen) {
         int ind = str.substr(0, maxlen).find_last_of(' ');
 
         text.setMessage(str.substr(0, ind));
@@ -86,9 +82,7 @@ void GUI::wrap_text(string str, int maxlen, int linespace, Text &text)
 
         text.setMessage(str.substr(ind, str.size() - ind));
         text.imprint();
-    }
-    else
-    {
+    } else {
         text.setMessage(str);
         text.imprint();
     }
