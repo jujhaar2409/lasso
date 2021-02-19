@@ -33,7 +33,6 @@ class Coin : public MovingObject {
     int game_mode;
 
     vector<int> coin_type_prob;
-    vector<int> coin_types;
 
     // Moving parts
     Circle coin_circle;

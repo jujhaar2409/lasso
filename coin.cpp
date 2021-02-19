@@ -65,35 +65,47 @@ int Coin::makes_magnetic() const {
 void Coin::init_type_prob() {
     if (game_mode == 1) {
         //* arcade mode
-        coin_types.push_back(0);
+
+        // type 0: bonus
         coin_type_prob.push_back(2);
-        coin_types.push_back(1);
+        // type 1: regular
         coin_type_prob.push_back(8);
+        // type 2: magnet
+        coin_type_prob.push_back(0);
+        // type 3: bomb
+        coin_type_prob.push_back(0);
     } else if (game_mode == 2) {
         //* magnet mode
-        coin_types.push_back(0);
+
+        // type 0: bonus
         coin_type_prob.push_back(2);
-        coin_types.push_back(1);
+        // type 1: regular
         coin_type_prob.push_back(12);
-        coin_types.push_back(2);
+        // type 2: magnet
         coin_type_prob.push_back(6);
+        // type 3: bomb
+        coin_type_prob.push_back(0);
     } else if (game_mode == 3) {
         //* bomb mode
-        coin_types.push_back(0);
+
+        // type 0: bonus
         coin_type_prob.push_back(2);
-        coin_types.push_back(1);
+        // type 1: regular
         coin_type_prob.push_back(12);
-        coin_types.push_back(3);
+        // type 2: magnet
+        coin_type_prob.push_back(0);
+        // type 3: bomb
         coin_type_prob.push_back(6);
     } else if (game_mode == 4) {
         //* rajni mode
-        coin_types.push_back(0);
+
+        // type 0: bonus
         coin_type_prob.push_back(2);
-        coin_types.push_back(1);
+        // type 1: regular
         coin_type_prob.push_back(12);
-        coin_types.push_back(2);
+        // type 2: magnet
         coin_type_prob.push_back(6);
-        coin_types.push_back(3);
+        // type 3: bomb
         coin_type_prob.push_back(6);
     }
 }
@@ -104,8 +116,8 @@ void Coin::init_type() {
     int sum = 0;
     for (int i = 0; i < coin_type_prob.size(); i++) {
         if (val <= sum + coin_type_prob[i]) {
-            coin_type = coin_types[i];
-            coin_reward = 2 - coin_type;
+            coin_type = i;
+            coin_reward = 2 - i;
             return;
         }
         sum += coin_type_prob[i];
