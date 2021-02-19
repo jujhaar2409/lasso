@@ -90,14 +90,12 @@ main_program
       double coin_ax = 0;
       double coin_ay = COIN_G;
 
-      int num_coins = 3;
-      Coin coin1(coin_speed, COIN_ANGLE_DEG, coin_ax, coin_ay, paused, rtheta, 4);
-      Coin coin2(coin_speed, COIN_ANGLE_DEG, coin_ax, coin_ay, paused, rtheta, 4);
-      Coin coin3(coin_speed, COIN_ANGLE_DEG, coin_ax, coin_ay, paused, rtheta, 4);
-      vector<Coin *> coins;
-      coins.push_back(&coin1);
-      coins.push_back(&coin2);
-      coins.push_back(&coin3);
+      int num_coins = 4;
+      vector<Coin *> coins(num_coins);
+      for (int i = 0; i < num_coins; i++)
+      {
+          coins[i] = new Coin(coin_speed, COIN_ANGLE_DEG, coin_ax, coin_ay, paused, rtheta, 1);
+      }
 
       // After every COIN_GAP sec, make the coin jump
       // double last_coin_jump_end = 0;
