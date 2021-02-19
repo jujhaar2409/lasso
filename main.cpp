@@ -1,9 +1,8 @@
 #include <simplecpp>
 #include <string>
 #include "lasso.h"
-#include "coin.h"
+#include "game.h"
 #include "display.h"
-#include <vector>
 
 using namespace simplecpp;
 
@@ -49,151 +48,13 @@ main_program {
     bg.setColor(COLOR(CANVAS_BG_COLOR));
     bg.setFill(true);
 
-    int stepCount = 0;
-    float stepTime = STEP_TIME;
-    float runTime = -1; // sec; -ve means infinite
-    float currTime = 0;
-
-    // Draw lasso at start position
-    double release_speed = INIT_RELEASE_SPEED;         // m/s
-    double release_angle_deg = INIT_RELEASE_ANGLE_DEG; // degrees
-    double lasso_ax = 0;
-    double lasso_ay = LASSO_G;
-    bool paused = true;
-    bool rtheta = true;
-    Lasso lasso(release_speed, release_angle_deg, lasso_ax, lasso_ay, paused, rtheta);
-
     Line b1(0, PLAY_Y_HEIGHT, WINDOW_X, PLAY_Y_HEIGHT);
     b1.setColor(COLOR(LIGHT_BROWN));
     Line b2(PLAY_X_START, 0, PLAY_X_START, WINDOW_Y);
     b2.setColor(COLOR(LIGHT_BROWN));
 
-    //      string msg("Cmd: _");
-    //      Text charPressed(PLAY_X_START + 50, PLAY_Y_HEIGHT + 20, msg);
-    char coinScoreStr[256];
-    sprintf(coinScoreStr, "Score: %d", lasso.getNumCoins());
-    Text coinScore(PLAY_X_START + 75, PLAY_Y_HEIGHT + 50, coinScoreStr);
-    coinScore.setColor(COLOR(BROWN));
-
-    paused = true;
-    rtheta = true;
-    double coin_speed = COIN_SPEED;
-    double coin_ax = 0;
-    double coin_ay = COIN_G;
-
-    int num_coins = 10;
-    vector<Coin *> coins(num_coins);
-    for (int i = 0; i < num_coins; i++) {
-        coins[i] = new Coin(coin_speed, COIN_ANGLE_DEG, coin_ax, coin_ay, paused, rtheta, game_mode);
-    }
-
-    // After every COIN_GAP sec, make the coin jump
-    // double last_coin_jump_end = 0;
-    double last_coin_jump_ends[num_coins];
-    for (int i = 0; i < num_coins; i++) {
-        last_coin_jump_ends[i] = 0;
-    }
-
-    // When t is pressed, throw lasso
-    // If lasso within range, make coin stick
-    // When y is pressed, yank lasso
-    // When l is pressed, loop lasso
-    // When q is pressed, quit
-
-    for (;;) {
-        // learnt from: https://www.cse.iitb.ac.in/~ranade/simplecpp/raagmalaa/car.cpp
-        // stops rendering after each change
-        beginFrame();
-
-        if ((runTime > 0) && (currTime > runTime)) {
-            break;
-        }
-
-        XEvent e;
-        bool pendingEv = checkEvent(e);
-        if (pendingEv) {
-            char c = charFromEvent(e);
-            //                  msg[msg.length() - 1] = c;
-            //                  charPressed.setMessage(msg);
-            switch (c) {
-                case 't':
-                    lasso.unpause();
-                    break;
-                case 'y':
-                    lasso.yank();
-                    break;
-                case 'l':
-                    lasso.loopit();
-                    for (int i = 0; i < num_coins; i++) {
-                        lasso.check_for_coin(coins[i]);
-                    }
-                    wait(STEP_TIME * 5);
-                    break;
-                case '[':
-                    if (lasso.isPaused()) {
-                        lasso.addAngle(-RELEASE_ANGLE_STEP_DEG);
-                    }
-                    break;
-                case ']':
-                    if (lasso.isPaused()) {
-                        lasso.addAngle(+RELEASE_ANGLE_STEP_DEG);
-                    }
-                    break;
-                case '-':
-                    if (lasso.isPaused()) {
-                        lasso.addSpeed(-RELEASE_SPEED_STEP);
-                    }
-                    break;
-                case '=':
-                    if (lasso.isPaused()) {
-                        lasso.addSpeed(+RELEASE_SPEED_STEP);
-                    }
-                    break;
-                case 'q':
-                    exit(0);
-                default:
-                    break;
-            }
-        }
-
-        lasso.nextStep(stepTime);
-
-        if (lasso.get_magnetic()) {
-            for (int i = 0; i < num_coins; i++) {
-                if (!lasso.coin_present(coins[i]))
-                    coins[i]->attract(&lasso, 0.02);
-            }
-        }
-
-        for (int i = 0; i < num_coins; i++) {
-            Coin *coin = coins[i];
-            coin->nextStep(stepTime);
-            if (coin->isPaused()) {
-                if ((currTime - last_coin_jump_ends[i]) >= COIN_GAP) {
-                    coin->unpause();
-                }
-            }
-
-            if (coin->getYPos() > PLAY_Y_START + PLAY_Y_HEIGHT || coin->getXPos() > PLAY_X_START + PLAY_X_WIDTH ||
-                coin->getYPos() < PLAY_Y_START || coin->getXPos() < PLAY_X_START) {
-                coin->resetCoin(lasso.get_magnetic());
-                last_coin_jump_ends[i] = currTime;
-            }
-        }
-
-//        sprintf(coinScoreStr, "Score: %d", lasso.getNumCoins());
-//        coinScore.setMessage(coinScoreStr);
-        sprintf(coinScoreStr, "Magnetised: %d", int(lasso.get_magnetic()));
-        coinScore.setMessage(coinScoreStr);
-
-        stepCount++;
-        currTime += stepTime;
-        wait(stepTime);
-
-        // learnt from: https://www.cse.iitb.ac.in/~ranade/simplecpp/raagmalaa/car.cpp
-        // renders changes all at once
-        endFrame();
-    } // End for(;;)
+    Game mygame(game_mode);
+    mygame.loop();
 
     wait(3);
 } // End main_program
