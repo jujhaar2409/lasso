@@ -1,8 +1,8 @@
 #include <simplecpp>
 #include "constants.h"
-#include "gui.h"
+#include "display.h"
 
-void GUI::show_instructions() {
+void display::show_instructions() {
     vector<string> commands;
     commands.emplace_back("+/= and -");
     commands.emplace_back("[ and ]");
@@ -37,7 +37,7 @@ void GUI::show_instructions() {
     text.imprint();
 };
 
-void GUI::show_modes() {
+void display::show_modes() {
     vector<string> modes;
     modes.emplace_back("Press 1: Arcade Mode");
     modes.emplace_back("Press 2: Magnet Mode");
@@ -64,7 +64,7 @@ void GUI::show_modes() {
     show_list_on_canvas(modes, rules, text);
 };
 
-void GUI::show_list_on_canvas(vector<string> headings, vector<string> content, Text &text) {
+void display::show_list_on_canvas(vector<string> headings, vector<string> content, Text &text) {
     for (int i = 0; i < headings.size(); i++) {
         text.move(0, 50);
 
@@ -77,7 +77,7 @@ void GUI::show_list_on_canvas(vector<string> headings, vector<string> content, T
     }
 }
 
-void GUI::wrap_text(string str, int maxlen, int linespace, Text &text) {
+void display::wrap_text(string str, int maxlen, int linespace, Text &text) {
     if (str.length() > maxlen) {
         int ind = str.substr(0, maxlen).find_last_of(' ');
 

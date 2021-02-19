@@ -2,14 +2,14 @@
 #include <string>
 #include "lasso.h"
 #include "coin.h"
-#include "gui.h"
+#include "display.h"
 #include <vector>
 
 using namespace simplecpp;
 
 main_program {
     initCanvas("Lasso - Instructions", WINDOW_X, WINDOW_Y * 1.2);
-    GUI::show_instructions();
+    display::show_instructions();
     for (;;) {
         XEvent e;
         bool pendingEv = checkEvent(e);
@@ -26,7 +26,7 @@ main_program {
 
     int game_mode;
     initCanvas("Lasso - Choose Mode", WINDOW_X, WINDOW_Y);
-    GUI::show_modes();
+    display::show_modes();
     for (;;) {
         XEvent e;
         bool pendingEv = checkEvent(e);

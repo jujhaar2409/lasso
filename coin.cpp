@@ -111,7 +111,7 @@ void Coin::init_type_prob() {
 }
 
 void Coin::init_type(bool magnetic) {
-    int val = my_random::get_random_in_range(0.0, my_vector_utils::sum(coin_type_prob));
+    double val = my_random::get_random_in_range(0.0, my_vector_utils::sum(coin_type_prob));
 
     int sum = 0;
     int elem;
