@@ -8,7 +8,7 @@
 using namespace simplecpp;
 
 main_program {
-    initCanvas("Lasso - Instructions", WINDOW_X, WINDOW_Y);
+    initCanvas("Lasso - Instructions", WINDOW_X, WINDOW_Y * 1.2);
     GUI::show_instructions();
     for (;;) {
         XEvent e;
@@ -24,18 +24,20 @@ main_program {
         }
     }
 
-    initCanvas("Lasso - Choose mode", WINDOW_X, WINDOW_Y);
+    int game_mode;
+    initCanvas("Lasso - Choose Mode", WINDOW_X, WINDOW_Y);
     GUI::show_modes();
     for (;;) {
         XEvent e;
         bool pendingEv = checkEvent(e);
         if (pendingEv) {
             char c = charFromEvent(e);
-            if (c == 'n') {
+            if (c == 'q') {
+                exit(0);
+            } else if (c >= '1' && c <= '4') {
+                game_mode = c - '0';
                 closeCanvas();
                 break;
-            } else if (c == 'q') {
-                exit(0);
             }
         }
     }
@@ -82,7 +84,7 @@ main_program {
     int num_coins = 4;
     vector<Coin *> coins(num_coins);
     for (int i = 0; i < num_coins; i++) {
-        coins[i] = new Coin(coin_speed, COIN_ANGLE_DEG, coin_ax, coin_ay, paused, rtheta, 1);
+        coins[i] = new Coin(coin_speed, COIN_ANGLE_DEG, coin_ax, coin_ay, paused, rtheta, game_mode);
     }
 
     // After every COIN_GAP sec, make the coin jump
@@ -179,7 +181,7 @@ main_program {
             }
         }
 
-        sprintf(coinScoreStr, "Coins: %d", lasso.getNumCoins());
+        sprintf(coinScoreStr, "Score: %d", lasso.getNumCoins());
         coinScore.setMessage(coinScoreStr);
 
         stepCount++;

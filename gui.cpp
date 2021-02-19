@@ -9,6 +9,7 @@ void GUI::show_instructions() {
     commands.emplace_back("t");
     commands.emplace_back("l");
     commands.emplace_back("y");
+    commands.emplace_back("q");
 
     vector<string> instructions;
     instructions.emplace_back("Increase and decrease the speed of the lasso respectively");
@@ -17,6 +18,7 @@ void GUI::show_instructions() {
     instructions.emplace_back(
             "'loops' the lasso, which means that the coin can be caught at this moment, if it is within range");
     instructions.emplace_back("'yanks' the lasso, brings lasso back to starting position");
+    instructions.emplace_back("press q any time to quit game");
 
     Text text(WINDOW_X / 2.0, 50, "Lasso - Instructions");
 
@@ -29,23 +31,27 @@ void GUI::show_instructions() {
     text.imprint();
 
     show_list_on_canvas(commands, instructions, text);
+
+    text.move(0, 50);
+    text.setMessage("press N to go to next screen and choose game mode");
+    text.imprint();
 };
 
 void GUI::show_modes() {
     vector<string> modes;
     modes.emplace_back("Press 1: Arcade Mode");
-    modes.emplace_back("Press 2: Bomb Mode");
-    modes.emplace_back("Press 3: Magnet Mode");
+    modes.emplace_back("Press 2: Magnet Mode");
+    modes.emplace_back("Press 3: Bomb Mode");
     modes.emplace_back("Press 4: Rajni Mode");
 
     vector<string> rules;
     rules.emplace_back("Collect the most number of coins that you can");
-    rules.emplace_back("Beware of the bombs as they provide a score reduction");
     rules.emplace_back("Collect magnets to attract more coins");
+    rules.emplace_back("Beware of the bombs as they provide a score reduction");
     rules.emplace_back(
             "Only a true braveheart should choose this mode, with both bombs and magnets, things can get dicey very fast ;)");
 
-    Text text(WINDOW_X / 2.0, 50, "Lasso - Instructions");
+    Text text(WINDOW_X / 2.0, 50, "Lasso - Choose Mode");
 
     text.setColor(COLOR(BLACK));
     text.imprint();
