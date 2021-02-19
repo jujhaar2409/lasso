@@ -49,7 +49,7 @@ void Lasso::yank() {
             num_coins += the_coin->get_coin_reward();
             if (the_coin->makes_magnetic())
                 magnetic = true;
-            the_coin->resetCoin();
+            the_coin->resetCoin(false);
             the_coins[i] = nullptr;
         }
         the_coins_len = 0;
@@ -94,6 +94,14 @@ void Lasso::nextStep(double stepTime) {
     MovingObject::nextStep(stepTime);
     if (getYPos() > PLAY_Y_START + PLAY_Y_HEIGHT || getXPos() > PLAY_X_START + PLAY_X_WIDTH) {
         yank();
+    }
+    if (magnetic) {
+        if (magnet_step_count >= magnet_num_steps) {
+            magnetic = false;
+            magnet_step_count = 0;
+        } else {
+            magnet_step_count++;
+        }
     }
     lasso_line.reset(lasso_start_x, lasso_start_y, getXPos(), getYPos());
 } // End Lasso::nextStep()

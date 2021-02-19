@@ -81,7 +81,7 @@ main_program {
     double coin_ax = 0;
     double coin_ay = COIN_G;
 
-    int num_coins = 4;
+    int num_coins = 10;
     vector<Coin *> coins(num_coins);
     for (int i = 0; i < num_coins; i++) {
         coins[i] = new Coin(coin_speed, COIN_ANGLE_DEG, coin_ax, coin_ay, paused, rtheta, game_mode);
@@ -176,12 +176,14 @@ main_program {
 
             if (coin->getYPos() > PLAY_Y_START + PLAY_Y_HEIGHT || coin->getXPos() > PLAY_X_START + PLAY_X_WIDTH ||
                 coin->getYPos() < PLAY_Y_START || coin->getXPos() < PLAY_X_START) {
-                coin->resetCoin();
+                coin->resetCoin(lasso.get_magnetic());
                 last_coin_jump_ends[i] = currTime;
             }
         }
 
-        sprintf(coinScoreStr, "Score: %d", lasso.getNumCoins());
+//        sprintf(coinScoreStr, "Score: %d", lasso.getNumCoins());
+//        coinScore.setMessage(coinScoreStr);
+        sprintf(coinScoreStr, "Magnetised: %d", int(lasso.get_magnetic()));
         coinScore.setMessage(coinScoreStr);
 
         stepCount++;

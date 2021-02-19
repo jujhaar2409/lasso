@@ -41,7 +41,7 @@ class Coin : public MovingObject {
 
     void init_type_prob();
 
-    void init_type();
+    void init_type(bool magnetic);
 
     void set_coin_color();
 
@@ -56,14 +56,14 @@ public:
         // coin_reward = 1;
         game_mode = gamemode;
         init_type_prob();
-        init_type();
+        init_type(false);
 
         initCoin();
     }
 
     void initCoin();
 
-    void resetCoin();
+    void resetCoin(bool magnetic);
 
     void attract(MovingObject *obj, double scale);
 

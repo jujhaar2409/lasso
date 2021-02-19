@@ -29,6 +29,14 @@ class Lasso : public MovingObject {
     int num_coins;
     bool magnetic;
 
+    // total time that the lasso will remain magnetised in seconds
+    double magnet_time_sec_approx = 5;
+    // number of steps corresponding to the above time
+    double magnet_num_steps = (500.0 / 17.0) * magnet_time_sec_approx; // 500 steps corresponds to 17 sec
+
+    // count of steps taken by the lasso while magnetised
+    int magnet_step_count;
+
     void initLasso();
 
 public:
@@ -45,6 +53,8 @@ public:
 
         //    magnetic = true;
         magnetic = false;
+        // set counter to 0
+        magnet_step_count = 0;
 
         initLasso();
     }

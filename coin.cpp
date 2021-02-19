@@ -24,7 +24,7 @@ void Coin::initCoin() {
     addPart(&coin_circle);
 }
 
-void Coin::resetCoin() {
+void Coin::resetCoin(bool magnetic) {
     double coin_speed = COIN_SPEED;
     double coin_angle_deg = COIN_ANGLE_DEG;
     coin_ax = 0;
@@ -32,7 +32,7 @@ void Coin::resetCoin() {
     bool paused = true, rtheta = true;
 
     //* making types work
-    init_type();
+    init_type(magnetic);
     set_coin_color();
 
     // randomize position of coin
@@ -110,17 +110,19 @@ void Coin::init_type_prob() {
     }
 }
 
-void Coin::init_type() {
+void Coin::init_type(bool magnetic) {
     int val = my_random::get_random_in_range(0.0, my_vector_utils::sum(coin_type_prob));
 
     int sum = 0;
+    int elem;
     for (int i = 0; i < coin_type_prob.size(); i++) {
-        if (val <= sum + coin_type_prob[i]) {
+        elem = (i == 2 && magnetic) ? 0 : coin_type_prob[i];
+        if (val <= sum + elem) {
             coin_type = i;
             coin_reward = 2 - i;
             return;
         }
-        sum += coin_type_prob[i];
+        sum += elem;
     }
 }
 
