@@ -38,7 +38,7 @@ class Lasso : public MovingObject {
     // frenzy state keeper
     bool frenzy;
     // total time that frenzy will remain
-    const double frenzy_time_sec = 5.0;
+    const double frenzy_time_sec = 10.0;
     const double frenzy_time_val = frenzy_time_sec / (4 * SCALE_FACTOR); // 5 / SCALE_FACTOR ~ 20 seconds
     double frenzy_start_time;
     // number of steps corresponding to the above time
