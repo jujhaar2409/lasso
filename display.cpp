@@ -136,7 +136,7 @@ void display::print_pair(string &heading, string &content, Text &text) {
     wrap_text(content, 60, 25, text);
 }
 
-void display::wrap_text(string str, int maxlen, int linespace, Text &text) {
+void display::wrap_text(string &str, int maxlen, int linespace, Text &text) {
     if (str.length() > maxlen) {
         int ind = str.substr(0, maxlen).find_last_of(' ');
 
