@@ -16,6 +16,7 @@ class Coin : public MovingObject {
     // 1: normal
     // 2: magnetic
     // 3: bomb
+    // 4: frenzy
     int coin_type;
 
     // values of coin_reward depend on the coin type:
@@ -23,7 +24,9 @@ class Coin : public MovingObject {
     // normal: 1
     // magnetic: 0
     // bomb: -1
+    // frenzy: 0
     int coin_reward;
+    const vector<int> coin_rewards{2, 1, 0, -1, 0};
 
     // values of game mode may be:
     // 1: arcade
@@ -41,7 +44,7 @@ class Coin : public MovingObject {
 
     void init_type_prob();
 
-    void init_type(bool magnetic);
+    void init_type(bool magnetic, bool frenzy);
 
     void set_coin_color();
 
@@ -56,14 +59,14 @@ public:
         // coin_reward = 1;
         game_mode = gamemode;
         init_type_prob();
-        init_type(false);
+        init_type(true, true);
 
         initCoin();
     }
 
     void initCoin();
 
-    void resetCoin(bool magnetic);
+    void resetCoin(bool magnetic, bool frenzy);
 
     void attract(MovingObject *obj, double scale);
 
@@ -71,7 +74,15 @@ public:
 
     int get_coin_reward() const;
 
-    int makes_magnetic() const;
+    bool makes_magnetic() const;
+
+    bool makes_frenzy() const;
+
+    void hide() override;
+
+    void show() override;
+
+    int get_type() const;
 }; // End class Coin
 
 #endif

@@ -3,6 +3,7 @@
 #include "display.h"
 
 void display::show_instructions() {
+    beginFrame();
     vector<string> commands;
     commands.emplace_back("+/= and -");
     commands.emplace_back("[ and ]");
@@ -35,9 +36,11 @@ void display::show_instructions() {
     text.move(0, 50);
     text.setMessage("press N to go to next screen and choose game mode");
     text.imprint();
+    endFrame();
 };
 
 void display::show_modes() {
+    beginFrame();
     vector<string> modes;
     modes.emplace_back("Press 1: Arcade Mode");
     modes.emplace_back("Press 2: Magnet Mode");
@@ -62,6 +65,7 @@ void display::show_modes() {
     text.imprint();
 
     show_list_on_canvas(modes, rules, text);
+    endFrame();
 };
 
 void display::show_list_on_canvas(vector<string> headings, vector<string> content, Text &text) {

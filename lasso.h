@@ -27,12 +27,20 @@ class Lasso : public MovingObject {
     Coin *the_coins[MAX_COINS];
     int the_coins_len;
     int num_coins;
-    bool magnetic;
 
+    // magnetic state keeper
+    bool magnetic;
     // total time that the lasso will remain magnetised in seconds
     const double magnet_time_sec = 5.0;
     const double magnet_time_val = magnet_time_sec / (4 * SCALE_FACTOR); // 5 / SCALE_FACTOR ~ 20 seconds
     double magnet_start_time;
+
+    // frenzy state keeper
+    bool frenzy;
+    // total time that frenzy will remain
+    const double frenzy_time_sec = 5.0;
+    const double frenzy_time_val = frenzy_time_sec / (4 * SCALE_FACTOR); // 5 / SCALE_FACTOR ~ 20 seconds
+    double frenzy_start_time;
     // number of steps corresponding to the above time
 //    double magnet_num_steps = (500.0 / 17.0) * magnet_time_sec_approx; // 500 steps corresponds to 17 sec
 
@@ -55,9 +63,11 @@ public:
 
         //    magnetic = true;
         magnetic = false;
+        frenzy = false;
         // set counter to 0
 //        magnet_step_count = 0;
         magnet_start_time = -1;
+        frenzy_start_time = -1;
 
         initLasso();
     }
@@ -78,11 +88,11 @@ public:
 
     int getNumCoins() const { return num_coins; }
 
-    bool get_magnetic();
-
-    void set_magnetic(bool);
+    bool get_magnetic() const;
 
     bool coin_present(Coin *coin);
+
+    bool get_frenzy() const;
 }; // End class Lasso
 
 #endif

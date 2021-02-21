@@ -14,6 +14,7 @@ class Game {
     vector<Coin *> coins;
 
     int active_coins;
+    const int normal_active_coins = 4;
 
     int stepCount;
     float stepTime;
@@ -34,19 +35,25 @@ class Game {
 
     double last_coin_jump_ends[MAX_COINS];
 
-    bool is_frenzy;
+    int game_mode;
 
     bool magnetic;
+    bool frenzy;
+    bool already_frenzy;
 
     char coinScoreStr[256];
     Text *coinScore;
 
     void check_command();
 
+    void make_frenzy();
+
+    void unmake_frenzy();
+
     void nextStep();
 
 public:
-    explicit Game(int game_mode) {
+    explicit Game(int mode) {
         stepCount = 0;
         stepTime = STEP_TIME;
         runTime = -1; // sec; -ve means infinite
@@ -59,9 +66,12 @@ public:
         lasso_ay = LASSO_G;
         paused = true;
         rtheta = true;
+        game_mode = mode;
         lasso = new Lasso(release_speed, release_angle_deg, lasso_ax, lasso_ay, paused, rtheta);
 
         magnetic = false;
+        frenzy = false;
+        already_frenzy = false;
 
         active_coins = 4;
 
@@ -70,13 +80,19 @@ public:
         coin_speed = COIN_SPEED;
         coin_ax = 0;
         coin_ay = COIN_G;
-        for (int i = 0; i < active_coins; i++) {
+
+        beginFrame();
+        for (int i = 0; i < MAX_COINS; i++) {
             coins.push_back(new Coin(coin_speed, COIN_ANGLE_DEG, coin_ax, coin_ay, paused, rtheta, game_mode));
         }
+        for (int i = normal_active_coins; i < MAX_COINS; i++) {
+            coins[i]->hide();
+        }
 
-        for (int i = 0; i < active_coins; i++) {
+        for (int i = 0; i < MAX_COINS; i++) {
             last_coin_jump_ends[i] = 0;
         }
+        endFrame();
 
         sprintf(coinScoreStr, "Score: %d", lasso->getNumCoins());
         coinScore = new Text(PLAY_X_START + 75, PLAY_Y_HEIGHT + 50, coinScoreStr);

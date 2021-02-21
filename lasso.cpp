@@ -51,7 +51,11 @@ void Lasso::yank(double currTime) {
                 magnetic = true;
                 magnet_start_time = currTime;
             }
-            the_coin->resetCoin(false);
+            if (the_coin->makes_frenzy()) {
+                frenzy = true;
+                frenzy_start_time = currTime;
+            }
+            the_coin->resetCoin(magnetic, frenzy);
             the_coins[i] = nullptr;
         }
         the_coins_len = 0;
@@ -99,7 +103,9 @@ void Lasso::nextStep(double stepTime, double currTime) {
     }
     if (magnetic && ((currTime - magnet_start_time) >= magnet_time_val)) {
             magnetic = false;
-//            magnet_step_count = 0;
+    }
+    if (frenzy && ((currTime - frenzy_start_time) >= frenzy_time_val)) {
+        frenzy = false;
     }
     lasso_line.reset(lasso_start_x, lasso_start_y, getXPos(), getYPos());
 } // End Lasso::nextStep()
@@ -131,10 +137,10 @@ bool Lasso::coin_present(Coin *coin) {
     return false;
 }
 
-bool Lasso::get_magnetic() {
+bool Lasso::get_magnetic() const {
     return magnetic;
 }
 
-void Lasso::set_magnetic(bool magnetic_val) {
-    magnetic = magnetic_val;
+bool Lasso::get_frenzy() const {
+    return frenzy;
 }

@@ -3,10 +3,14 @@
 #include "random.h"
 
 namespace my_vector_utils {
-    int sum(const vector<int> &vec) {
+    int sum(const vector<int> &vec, bool magnetic, bool frenzy) {
         int sum = 0;
-        for (int i : vec)
-            sum += i;
+        int term;
+        for (int i = 0; i < vec.size(); i++){
+            term = vec[i];
+            if ((magnetic && i == 2) || (frenzy && i == 4)) term = 0;
+            sum += term;
+        }
         return sum;
     }
 } // namespace my_vector_utils
@@ -24,7 +28,7 @@ void Coin::initCoin() {
     addPart(&coin_circle);
 }
 
-void Coin::resetCoin(bool magnetic) {
+void Coin::resetCoin(bool magnetic, bool frenzy) {
     double coin_speed = COIN_SPEED;
     double coin_angle_deg = COIN_ANGLE_DEG;
     coin_ax = 0;
@@ -32,7 +36,7 @@ void Coin::resetCoin(bool magnetic) {
     bool paused = true, rtheta = true;
 
     //* making types work
-    init_type(magnetic);
+    init_type(magnetic, frenzy);
     set_coin_color();
 
     // randomize position of coin
@@ -57,9 +61,13 @@ int Coin::get_coin_reward() const {
     return coin_reward;
 }
 
-int Coin::makes_magnetic() const {
+bool Coin::makes_magnetic() const {
     // type of magnetic coin is 2
     return coin_type == 2;
+}
+
+bool Coin::makes_frenzy() const {
+    return coin_type == 4;
 }
 
 void Coin::init_type_prob() {
@@ -74,6 +82,8 @@ void Coin::init_type_prob() {
         coin_type_prob.push_back(0);
         // type 3: bomb
         coin_type_prob.push_back(0);
+        // type 4: frenzy
+        coin_type_prob.push_back(5);
     } else if (game_mode == 2) {
         //* magnet mode
 
@@ -84,6 +94,8 @@ void Coin::init_type_prob() {
         // type 2: magnet
         coin_type_prob.push_back(6);
         // type 3: bomb
+        coin_type_prob.push_back(0);
+        // type 4: frenzy
         coin_type_prob.push_back(0);
     } else if (game_mode == 3) {
         //* bomb mode
@@ -96,6 +108,8 @@ void Coin::init_type_prob() {
         coin_type_prob.push_back(0);
         // type 3: bomb
         coin_type_prob.push_back(6);
+        // type 4: frenzy
+        coin_type_prob.push_back(0);
     } else if (game_mode == 4) {
         //* rajni mode
 
@@ -107,19 +121,24 @@ void Coin::init_type_prob() {
         coin_type_prob.push_back(6);
         // type 3: bomb
         coin_type_prob.push_back(6);
+        // type 4: frenzy
+        coin_type_prob.push_back(3);
     }
 }
 
-void Coin::init_type(bool magnetic) {
-    double val = my_random::get_random_in_range(0.0, my_vector_utils::sum(coin_type_prob));
+void Coin::init_type(bool magnetic, bool frenzy) {
+    double val = my_random::get_random_in_range(0.0, my_vector_utils::sum(coin_type_prob, magnetic, frenzy));
 
     int sum = 0;
-    int elem;
+    int elem = 0;
     for (int i = 0; i < coin_type_prob.size(); i++) {
-        elem = ((i == 2) && magnetic) ? (0) : (coin_type_prob[i]);
-        if (val <= sum + elem) {
+        elem = (coin_type_prob[i]);
+        if ((magnetic && i == 2) || (frenzy && i == 4))
+            elem = 0;
+
+        if (val < sum + elem) {
             coin_type = i;
-            coin_reward = 2 - i;
+            coin_reward = coin_rewards[i];
             return;
         }
         sum += elem;
@@ -139,9 +158,23 @@ void Coin::set_coin_color() {
     } else if (coin_type == 3) {
         //* Bomb Coin
         coin_circle.setColor(COLOR(BOMB_COIN_COLOR));
+    } else if (coin_type == 4) {
+        //* Frenzy Coin
+        coin_circle.setColor(COLOR(FRENZY_COIN_COLOR));
     }
 }
 
 void Coin::set_random_x() {
     coin_start_x = my_random::get_random_in_range(PLAY_X_START + PLAY_X_WIDTH * 0.2, PLAY_X_START + PLAY_X_WIDTH * 0.9);
+}
+
+void Coin::hide() {
+    coin_circle.hide();
+}
+void Coin::show() {
+    coin_circle.show();
+}
+
+int Coin::get_type() const {
+    return coin_type;
 }

@@ -83,12 +83,16 @@ void Game::nextStep() {
     lasso->nextStep(stepTime, currTime);
 
     magnetic = lasso->get_magnetic();
+    frenzy = lasso->get_frenzy();
     if (magnetic) {
         for (int i = 0; i < active_coins; i++) {
             if (!lasso->coin_present(coins[i]))
                 coins[i]->attract(lasso, 0.02);
         }
     }
+
+    if (frenzy && !already_frenzy) make_frenzy();
+    if (!frenzy && already_frenzy) unmake_frenzy();
 
     for (int i = 0; i < active_coins; i++) {
         Coin *coin = coins[i];
@@ -101,8 +105,25 @@ void Game::nextStep() {
 
         if (coin->getYPos() > PLAY_Y_START + PLAY_Y_HEIGHT || coin->getXPos() > PLAY_X_START + PLAY_X_WIDTH ||
             coin->getYPos() < PLAY_Y_START || coin->getXPos() < PLAY_X_START) {
-            coin->resetCoin(magnetic);
+            coin->resetCoin(magnetic, frenzy);
             last_coin_jump_ends[i] = currTime;
         }
     }
+}
+
+void Game::make_frenzy() {
+    for (int i = normal_active_coins; i < MAX_COINS; i++) {
+        coins[i]->show();
+    }
+    active_coins = MAX_COINS;
+    already_frenzy = true;
+}
+
+void Game::unmake_frenzy() {
+    for (int i = normal_active_coins; i < MAX_COINS; i++) {
+        coins[i]->resetCoin(magnetic, true);
+        coins[i]->hide();
+    }
+    active_coins = normal_active_coins;
+    already_frenzy = false;
 }
