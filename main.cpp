@@ -23,8 +23,24 @@ main_program {
         }
     }
 
+    initCanvas("Lasso - Coin Types", WINDOW_X, WINDOW_Y * 1.2);
+    display::show_coin_types();
+    for (;;) {
+        XEvent e;
+        bool pendingEv = checkEvent(e);
+        if (pendingEv) {
+            char c = charFromEvent(e);
+            if (c == 'n') {
+                closeCanvas();
+                break;
+            } else if (c == 'q') {
+                exit(0);
+            }
+        }
+    }
+
     int game_mode;
-    initCanvas("Lasso - Choose Mode", WINDOW_X, WINDOW_Y);
+    initCanvas("Lasso - Choose Mode", WINDOW_X, WINDOW_Y * 1.2);
     display::show_modes();
     for (;;) {
         XEvent e;

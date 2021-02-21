@@ -7,4 +7,8 @@ public:
     static void show_instructions();
 
     static void show_modes();
+
+    static void show_coin_types();
+
+    static void print_pair(string &heading, string &content, Text &text);
 };

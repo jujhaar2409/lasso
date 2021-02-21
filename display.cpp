@@ -34,8 +34,9 @@ void display::show_instructions() {
     show_list_on_canvas(commands, instructions, text);
 
     text.move(0, 50);
-    text.setMessage("press N to go to next screen and choose game mode");
+    text.setMessage("press N to go to next screen and see coin types!");
     text.imprint();
+
     endFrame();
 };
 
@@ -48,11 +49,11 @@ void display::show_modes() {
     modes.emplace_back("Press 4: Rajni Mode");
 
     vector<string> rules;
-    rules.emplace_back("Collect the most number of coins that you can");
-    rules.emplace_back("Collect magnets to attract more coins");
-    rules.emplace_back("Beware of the bombs as they provide a score reduction");
+    rules.emplace_back("Collect the most number of coins that you can, remember to collect frenzy coins to win big! types of coins: regular, bonus and frenzy");
+    rules.emplace_back("Collect magnets to attract more coins! types of coins: regular, bonus, magnet");
+    rules.emplace_back("Beware of the bombs as they provide a score reduction! types of coins: regular, bonus, bomb");
     rules.emplace_back(
-            "Only a true braveheart should choose this mode, with both bombs and magnets, things can get dicey very fast ;)");
+            "Only a true braveheart should choose this mode, with both bombs and magnets, things can get dicey very fast! types of coins: ALL!!");
 
     Text text(WINDOW_X / 2.0, 50, "Lasso - Choose Mode");
 
@@ -68,17 +69,71 @@ void display::show_modes() {
     endFrame();
 };
 
+
+void display::show_coin_types() {
+    beginFrame();
+    vector<string> types;
+    types.emplace_back("Bonus: +2");
+    types.emplace_back("Regular: +1");
+    types.emplace_back("Magnet: +0");
+    types.emplace_back("Bomb: -1");
+    types.emplace_back("Frenzy: +0");
+
+    vector<string> description;
+    description.emplace_back("Gives a bonus point!");
+    description.emplace_back("Regular old coin");
+    description.emplace_back("Magnetizes your lasso for ~5s");
+    description.emplace_back("Gives a negative point, stay away!");
+    description.emplace_back("More number of coins to catch for ~10s!");
+
+    Text text(WINDOW_X / 2.0, 50, "Lasso - Coin Types");
+
+    text.setColor(COLOR(BLACK));
+    text.imprint();
+
+    text.move(0, 50);
+
+    text.setMessage("The following are the coin types in the game:");
+    text.imprint();
+
+    text.setColor(COLOR(BONUS_COIN_COLOR));
+    print_pair(types[0], description[0], text);
+
+    text.setColor(COLOR(REGULAR_COIN_COLOR));
+    print_pair(types[1], description[1], text);
+
+    text.setColor(COLOR(MAGNET_COIN_COLOR));
+    print_pair(types[2], description[2], text);
+
+    text.setColor(COLOR(BOMB_COIN_COLOR));
+    print_pair(types[3], description[3], text);
+
+    text.setColor(COLOR(FRENZY_COIN_COLOR));
+    print_pair(types[4], description[4], text);
+
+    text.setColor(COLOR(BLACK));
+    text.move(0, 50);
+    text.setMessage("press N to go to next screen and choose game mode!");
+    text.imprint();
+
+    endFrame();
+};
+
 void display::show_list_on_canvas(vector<string> headings, vector<string> content, Text &text) {
     for (int i = 0; i < headings.size(); i++) {
-        text.move(0, 50);
-
-        text.setMessage(headings[i]);
-        text.imprint();
-
-        text.move(0, 25);
-
-        wrap_text(content[i], 60, 25, text);
+        print_pair(headings[i], content[i], text);
     }
+}
+
+void display::print_pair(string &heading, string &content, Text &text) {
+    text.move(0, 50);
+
+    text.setMessage(heading);
+    text.imprint();
+
+    text.move(0, 25);
+
+    wrap_text(content, 60, 25, text);
 }
 
 void display::wrap_text(string str, int maxlen, int linespace, Text &text) {
@@ -90,8 +145,9 @@ void display::wrap_text(string str, int maxlen, int linespace, Text &text) {
 
         text.move(0, linespace);
 
-        text.setMessage(str.substr(ind, str.size() - ind));
-        text.imprint();
+//        text.setMessage(str.substr(ind, str.size() - ind));
+//        text.imprint();
+        wrap_text(str.substr(ind, str.size() - ind), maxlen, linespace, text);
     } else {
         text.setMessage(str);
         text.imprint();
