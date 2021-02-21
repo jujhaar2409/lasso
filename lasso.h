@@ -30,12 +30,14 @@ class Lasso : public MovingObject {
     bool magnetic;
 
     // total time that the lasso will remain magnetised in seconds
-    double magnet_time_sec_approx = 5;
+    const double magnet_time_sec = 5.0;
+    const double magnet_time_val = magnet_time_sec / (4 * SCALE_FACTOR); // 5 / SCALE_FACTOR ~ 20 seconds
+    double magnet_start_time;
     // number of steps corresponding to the above time
-    double magnet_num_steps = (500.0 / 17.0) * magnet_time_sec_approx; // 500 steps corresponds to 17 sec
+//    double magnet_num_steps = (500.0 / 17.0) * magnet_time_sec_approx; // 500 steps corresponds to 17 sec
 
     // count of steps taken by the lasso while magnetised
-    int magnet_step_count;
+//    int magnet_step_count;
 
     void initLasso();
 
@@ -54,14 +56,15 @@ public:
         //    magnetic = true;
         magnetic = false;
         // set counter to 0
-        magnet_step_count = 0;
+//        magnet_step_count = 0;
+        magnet_start_time = -1;
 
         initLasso();
     }
 
     void draw_lasso_band();
 
-    void yank();
+    void yank(double);
 
     void loopit();
 
@@ -69,7 +72,7 @@ public:
 
     void addSpeed(double speed);
 
-    void nextStep(double t);
+    void nextStep(double t, double ct);
 
     void check_for_coin(Coin *coin);
 

@@ -116,7 +116,7 @@ void Coin::init_type(bool magnetic) {
     int sum = 0;
     int elem;
     for (int i = 0; i < coin_type_prob.size(); i++) {
-        elem = (i == 2 && magnetic) ? 0 : coin_type_prob[i];
+        elem = ((i == 2) && magnetic) ? (0) : (coin_type_prob[i]);
         if (val <= sum + elem) {
             coin_type = i;
             coin_reward = 2 - i;

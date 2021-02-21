@@ -42,11 +42,11 @@ void Game::check_command() {
                 lasso->unpause();
                 break;
             case 'y':
-                lasso->yank();
+                lasso->yank(currTime);
                 break;
             case 'l':
                 lasso->loopit();
-                for (int i = 0; i < MAX_COINS; i++) {
+                for (int i = 0; i < active_coins; i++) {
                     lasso->check_for_coin(coins[i]);
                 }
                 wait(STEP_TIME * 5);
@@ -80,9 +80,10 @@ void Game::check_command() {
 }
 
 void Game::nextStep() {
-    lasso->nextStep(stepTime);
+    lasso->nextStep(stepTime, currTime);
 
-    if (lasso->get_magnetic()) {
+    magnetic = lasso->get_magnetic();
+    if (magnetic) {
         for (int i = 0; i < active_coins; i++) {
             if (!lasso->coin_present(coins[i]))
                 coins[i]->attract(lasso, 0.02);
@@ -100,7 +101,7 @@ void Game::nextStep() {
 
         if (coin->getYPos() > PLAY_Y_START + PLAY_Y_HEIGHT || coin->getXPos() > PLAY_X_START + PLAY_X_WIDTH ||
             coin->getYPos() < PLAY_Y_START || coin->getXPos() < PLAY_X_START) {
-            coin->resetCoin(lasso->get_magnetic());
+            coin->resetCoin(magnetic);
             last_coin_jump_ends[i] = currTime;
         }
     }

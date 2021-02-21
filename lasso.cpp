@@ -37,7 +37,7 @@ void Lasso::initLasso() {
 
 } // End Lasso::initLasso()
 
-void Lasso::yank() {
+void Lasso::yank(double currTime) {
     bool paused = true, rtheta = true;
     reset_all(lasso_start_x, lasso_start_y, release_speed, release_angle_deg, lasso_ax, lasso_ay, paused, rtheta);
     lasso_loop.reset(lasso_start_x, lasso_start_y, LASSO_SIZE / 2);
@@ -47,8 +47,10 @@ void Lasso::yank() {
         for (int i = 0; i < the_coins_len; i++) {
             Coin *the_coin = the_coins[i];
             num_coins += the_coin->get_coin_reward();
-            if (the_coin->makes_magnetic())
+            if (the_coin->makes_magnetic()) {
                 magnetic = true;
+                magnet_start_time = currTime;
+            }
             the_coin->resetCoin(false);
             the_coins[i] = nullptr;
         }
@@ -89,19 +91,15 @@ void Lasso::addSpeed(double speed) {
     reset_all(lasso_start_x, lasso_start_y, release_speed, release_angle_deg, lasso_ax, lasso_ay, paused, rtheta);
 } // End Lasso::addSpeed()
 
-void Lasso::nextStep(double stepTime) {
+void Lasso::nextStep(double stepTime, double currTime) {
     draw_lasso_band();
     MovingObject::nextStep(stepTime);
     if (getYPos() > PLAY_Y_START + PLAY_Y_HEIGHT || getXPos() > PLAY_X_START + PLAY_X_WIDTH) {
-        yank();
+        yank(currTime);
     }
-    if (magnetic) {
-        if (magnet_step_count >= magnet_num_steps) {
+    if (magnetic && ((currTime - magnet_start_time) >= magnet_time_val)) {
             magnetic = false;
-            magnet_step_count = 0;
-        } else {
-            magnet_step_count++;
-        }
+//            magnet_step_count = 0;
     }
     lasso_line.reset(lasso_start_x, lasso_start_y, getXPos(), getYPos());
 } // End Lasso::nextStep()

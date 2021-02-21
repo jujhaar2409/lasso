@@ -28,12 +28,15 @@ class Game {
     bool paused;
     bool rtheta;
 
-
     double coin_speed;
     double coin_ax;
     double coin_ay;
 
     double last_coin_jump_ends[MAX_COINS];
+
+    bool is_frenzy;
+
+    bool magnetic;
 
     char coinScoreStr[256];
     Text *coinScore;
@@ -58,6 +61,8 @@ public:
         rtheta = true;
         lasso = new Lasso(release_speed, release_angle_deg, lasso_ax, lasso_ay, paused, rtheta);
 
+        magnetic = false;
+
         active_coins = 4;
 
         paused = true;
@@ -65,11 +70,11 @@ public:
         coin_speed = COIN_SPEED;
         coin_ax = 0;
         coin_ay = COIN_G;
-        for (int i = 0; i < MAX_COINS; i++) {
+        for (int i = 0; i < active_coins; i++) {
             coins.push_back(new Coin(coin_speed, COIN_ANGLE_DEG, coin_ax, coin_ay, paused, rtheta, game_mode));
         }
 
-        for (int i = 0; i < MAX_COINS; i++) {
+        for (int i = 0; i < active_coins; i++) {
             last_coin_jump_ends[i] = 0;
         }
 
