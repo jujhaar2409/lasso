@@ -18,7 +18,7 @@
 #define LASSO_THICKNESS 5
 
 // #define COIN_GAP 1
-#define COIN_GAP (0.2 / SCALE_FACTOR)
+#define COIN_GAP (0.2)
 
 #define RELEASE_ANGLE_STEP_DEG 5
 #define MIN_RELEASE_ANGLE_DEG 0

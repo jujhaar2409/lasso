@@ -32,20 +32,13 @@ class Lasso : public MovingObject {
     bool magnetic;
     // total time that the lasso will remain magnetised in seconds
     const double magnet_time_sec = 5.0;
-    const double magnet_time_val = magnet_time_sec / (4 * SCALE_FACTOR); // 5 / SCALE_FACTOR ~ 20 seconds
     double magnet_start_time;
 
     // frenzy state keeper
     bool frenzy;
     // total time that frenzy will remain
     const double frenzy_time_sec = 10.0;
-    const double frenzy_time_val = frenzy_time_sec / (4 * SCALE_FACTOR); // 5 / SCALE_FACTOR ~ 20 seconds
     double frenzy_start_time;
-    // number of steps corresponding to the above time
-//    double magnet_num_steps = (500.0 / 17.0) * magnet_time_sec_approx; // 500 steps corresponds to 17 sec
-
-    // count of steps taken by the lasso while magnetised
-//    int magnet_step_count;
 
     void initLasso();
 

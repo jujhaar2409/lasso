@@ -9,6 +9,7 @@ void Game::loop() {
         // learnt from: https://www.cse.iitb.ac.in/~ranade/simplecpp/raagmalaa/car.cpp
         // stops rendering after each change
         beginFrame();
+        auto t_start = std::chrono::high_resolution_clock::now();
 
         if ((runTime > 0) && (currTime > runTime)) {
             break;
@@ -21,12 +22,16 @@ void Game::loop() {
         sprintf(coinScoreStr, "Score: %d", lasso->getNumCoins());
         coinScore->setMessage(coinScoreStr);
 
-        stepCount++;
-        currTime += stepTime;
-        wait(stepTime);
-
         // renders changes all at once
         endFrame();
+
+        stepCount++;
+        wait(stepTime);
+        auto t_end = std::chrono::high_resolution_clock::now();
+        auto time_passed = std::chrono::duration<double, std::milli>(t_end-t_start).count();
+        currTime += float(time_passed) / 1000;
+
+        if (currTime > 30) break;
     } // End for(;;)
 }
 

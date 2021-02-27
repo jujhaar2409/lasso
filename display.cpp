@@ -147,7 +147,8 @@ void display::wrap_text(string &str, int maxlen, int linespace, Text &text) {
 
 //        text.setMessage(str.substr(ind, str.size() - ind));
 //        text.imprint();
-        wrap_text(str.substr(ind, str.size() - ind), maxlen, linespace, text);
+        string substr = str.substr(ind, str.size() - ind);
+        wrap_text(substr, maxlen, linespace, text);
     } else {
         text.setMessage(str);
         text.imprint();

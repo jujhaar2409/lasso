@@ -101,10 +101,10 @@ void Lasso::nextStep(double stepTime, double currTime) {
     if (getYPos() > PLAY_Y_START + PLAY_Y_HEIGHT || getXPos() > PLAY_X_START + PLAY_X_WIDTH) {
         yank(currTime);
     }
-    if (magnetic && ((currTime - magnet_start_time) >= magnet_time_val)) {
+    if (magnetic && ((currTime - magnet_start_time) >= magnet_time_sec)) {
             magnetic = false;
     }
-    if (frenzy && ((currTime - frenzy_start_time) >= frenzy_time_val)) {
+    if (frenzy && ((currTime - frenzy_start_time) >= frenzy_time_sec)) {
         frenzy = false;
     }
     lasso_line.reset(lasso_start_x, lasso_start_y, getXPos(), getYPos());
