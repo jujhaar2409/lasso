@@ -22,6 +22,8 @@ int Game::loop() {
 
         sprintf(coinScoreStr, "Score: %d", lasso->getNumCoins());
         coinScore->setMessage(coinScoreStr);
+        sprintf(game_clock_str, "Time: %ds / %ds", int(currTime), int(gameTime));
+        game_clock->setMessage(game_clock_str);
 
         // renders changes all at once
         endFrame();
@@ -32,7 +34,7 @@ int Game::loop() {
         auto time_passed = std::chrono::duration<double, std::milli>(t_end - t_start).count();
         currTime += float(time_passed) / 1000;
 
-        if (currTime > gameTime)break;
+        if (currTime > (float(gameTime) + float(time_passed) / 1000))break;
     } // End for(;;)
 
     showGameOver();

@@ -41,10 +41,13 @@ class Game {
     bool frenzy;
     bool already_frenzy;
 
-    const int gameTime = 5;
+    const float gameTime = 30;
 
     char coinScoreStr[256];
     Text *coinScore;
+
+    char game_clock_str[256];
+    Text *game_clock;
 
     void check_command();
 
@@ -103,11 +106,16 @@ public:
         for (int i = 0; i < MAX_COINS; i++) {
             last_coin_jump_ends[i] = 0;
         }
-        endFrame();
 
         sprintf(coinScoreStr, "Score: %d", lasso->getNumCoins());
         coinScore = new Text(PLAY_X_START + 75, PLAY_Y_HEIGHT + 50, coinScoreStr);
         coinScore->setColor(COLOR(BROWN));
+
+        sprintf(game_clock_str, "Time: %d / 30", (int)currTime);
+        game_clock = new Text(PLAY_X_START + PLAY_X_WIDTH - 150, PLAY_Y_HEIGHT + 50, coinScoreStr);
+        game_clock->setColor(COLOR(BROWN));
+
+        endFrame();
     }
 
     int loop();
