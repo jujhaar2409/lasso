@@ -41,6 +41,8 @@ class Game {
     bool frenzy;
     bool already_frenzy;
 
+    const int gameTime = 5;
+
     char coinScoreStr[256];
     Text *coinScore;
 
@@ -52,8 +54,18 @@ class Game {
 
     void nextStep();
 
+    static void showGameOver();
+
+    void getGameMode();
+
+    static void initGameWindow();
+
 public:
-    explicit Game(int mode) {
+    explicit Game() {
+        getGameMode();
+        initCanvas("Lasso", WINDOW_X, WINDOW_Y);
+        initGameWindow();
+
         stepCount = 0;
         stepTime = STEP_TIME;
         runTime = -1; // sec; -ve means infinite
@@ -66,7 +78,6 @@ public:
         lasso_ay = LASSO_G;
         paused = true;
         rtheta = true;
-        game_mode = mode;
         lasso = new Lasso(release_speed, release_angle_deg, lasso_ax, lasso_ay, paused, rtheta);
 
         magnetic = false;
@@ -99,7 +110,7 @@ public:
         coinScore->setColor(COLOR(BROWN));
     }
 
-    void loop();
+    int loop();
 };
 
 

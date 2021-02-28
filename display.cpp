@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "display.h"
 
-void display::show_instructions() {
+char display::show_instructions() {
     beginFrame();
     vector<string> commands;
     commands.emplace_back("+/= and -");
@@ -38,9 +38,21 @@ void display::show_instructions() {
     text.imprint();
 
     endFrame();
+
+    char c;
+    for (;;) {
+        XEvent e;
+        bool pendingEv = checkEvent(e);
+        if (pendingEv) {
+            c = charFromEvent(e);
+            if (c == 'n' || c=='q') {
+                return c;
+            }
+        }
+    }
 };
 
-void display::show_modes() {
+char display::show_modes() {
     beginFrame();
     vector<string> modes;
     modes.emplace_back("Press 1: Arcade Mode");
@@ -67,10 +79,22 @@ void display::show_modes() {
 
     show_list_on_canvas(modes, rules, text);
     endFrame();
+
+    char c;
+    for (;;) {
+        XEvent e;
+        bool pendingEv = checkEvent(e);
+        if (pendingEv) {
+            c = charFromEvent(e);
+            if (c=='q' || (c >= '1' && c <= '4')) {
+                return c;
+            }
+        }
+    }
 };
 
 
-void display::show_coin_types() {
+char display::show_coin_types() {
     beginFrame();
     vector<string> types;
     types.emplace_back("Bonus: +2");
@@ -117,6 +141,17 @@ void display::show_coin_types() {
     text.imprint();
 
     endFrame();
+
+    for (;;) {
+        XEvent e;
+        bool pendingEv = checkEvent(e);
+        if (pendingEv) {
+            char c = charFromEvent(e);
+            if (c == 'n' || c == 'q') {
+                return c;
+            }
+        }
+    }
 };
 
 void display::show_list_on_canvas(vector<string> headings, vector<string> content, Text &text) {
@@ -153,4 +188,50 @@ void display::wrap_text(string &str, int maxlen, int linespace, Text &text) {
         text.setMessage(str);
         text.imprint();
     }
+}
+
+char display::show_score(int score) {
+
+    Text text(WINDOW_X / 2.0, 50, "Score");
+
+    text.setColor(COLOR(BLACK));
+    text.imprint();
+
+    text.move(0, 200);
+
+    char score_display[256];
+    sprintf(score_display, "Your final score is: %d", score);
+    text.setMessage(score_display);
+    text.imprint();
+
+    text.move(0, 200);
+    text.setMessage("press N to play again! or press Q to quit");
+    text.imprint();
+
+    text.move(0, 100);
+    text.setMessage("press I to see coin types and instructions again");
+    text.imprint();
+
+    for (;;) {
+        XEvent e;
+        bool pendingEv = checkEvent(e);
+        if (pendingEv) {
+            char c = charFromEvent(e);
+            if (c == 'n' || c == 'q' || c == 'i') {
+                return c;
+            }
+        }
+    }
+}
+
+void display::show_info() {
+    initCanvas("Lasso - Instructions", WINDOW_X, WINDOW_Y * 1.2);
+    char show_instructions_cmd = display::show_instructions();
+    if (show_instructions_cmd == 'q') exit(0);
+    closeCanvas();
+
+    initCanvas("Lasso - Coin Types", WINDOW_X, WINDOW_Y * 1.2);
+    char coin_type_command = display::show_coin_types();
+    if (coin_type_command == 'q') exit(0);
+    closeCanvas();
 }

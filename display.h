@@ -5,10 +5,14 @@ class display {
 
     static void print_pair(string &heading, string &content, Text &text);
 
+    static char show_coin_types();
+
+    static char show_instructions();
+
 public:
-    static void show_instructions();
+    static char show_modes();
 
-    static void show_modes();
+    static char show_score(int);
 
-    static void show_coin_types();
+    static void show_info();
 };

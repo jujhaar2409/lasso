@@ -3,8 +3,9 @@
 //
 
 #include "game.h"
+#include "display.h"
 
-void Game::loop() {
+int Game::loop() {
     for (;;) {
         // learnt from: https://www.cse.iitb.ac.in/~ranade/simplecpp/raagmalaa/car.cpp
         // stops rendering after each change
@@ -28,11 +29,17 @@ void Game::loop() {
         stepCount++;
         wait(stepTime);
         auto t_end = std::chrono::high_resolution_clock::now();
-        auto time_passed = std::chrono::duration<double, std::milli>(t_end-t_start).count();
+        auto time_passed = std::chrono::duration<double, std::milli>(t_end - t_start).count();
         currTime += float(time_passed) / 1000;
 
-        if (currTime > 30) break;
+        if (currTime > gameTime)break;
     } // End for(;;)
+
+    showGameOver();
+
+    closeCanvas();
+
+    return lasso->getNumCoins();
 }
 
 void Game::check_command() {
@@ -131,4 +138,35 @@ void Game::unmake_frenzy() {
     }
     active_coins = normal_active_coins;
     already_frenzy = false;
+}
+
+
+void Game::showGameOver() {
+    Text text(WINDOW_X / 2.0, WINDOW_Y / 2.0, "GAME OVER");
+    wait(3);
+}
+
+void Game::getGameMode() {
+    initCanvas("Lasso - Choose Mode", WINDOW_X, WINDOW_Y * 1.2);
+    char res = display::show_modes();
+    closeCanvas();
+    if (res == 'q') exit(0);
+    else if (res <= '4' && res >= '1') game_mode = res - '0';
+}
+
+void Game::initGameWindow() {
+    // Set background
+    beginFrame();
+    Rectangle bg(WINDOW_X / 2, WINDOW_Y / 2, WINDOW_X * 1.2, WINDOW_Y * 1.2);
+    bg.setColor(COLOR(CANVAS_BG_COLOR));
+    bg.setFill(true);
+    bg.imprint();
+
+    Line b1(0, PLAY_Y_HEIGHT, WINDOW_X, PLAY_Y_HEIGHT);
+    b1.setColor(COLOR(LIGHT_BROWN));
+    b1.imprint();
+    Line b2(PLAY_X_START, 0, PLAY_X_START, WINDOW_Y);
+    b2.setColor(COLOR(LIGHT_BROWN));
+    b2.imprint();
+    endFrame();
 }
