@@ -6,7 +6,7 @@ namespace my_vector_utils {
     int sum(const vector<int> &vec, bool magnetic, bool frenzy) {
         int sum = 0;
         int term;
-        for (int i = 0; i < vec.size(); i++){
+        for (int i = 0; i < vec.size(); i++) {
             term = vec[i];
             if ((magnetic && i == 2) || (frenzy && i == 4)) term = 0;
             sum += term;
@@ -70,6 +70,10 @@ bool Coin::makes_frenzy() const {
     return coin_type == 4;
 }
 
+bool Coin::makes_reduce_life() const {
+    return coin_type == 3;
+}
+
 void Coin::init_type_prob() {
     if (game_mode == 1) {
         //* arcade mode
@@ -111,7 +115,7 @@ void Coin::init_type_prob() {
         // type 4: frenzy
         coin_type_prob.push_back(0);
     } else if (game_mode == 4) {
-        //* rajni mode
+        //* mega mode
 
         // type 0: bonus
         coin_type_prob.push_back(2);
@@ -171,6 +175,7 @@ void Coin::set_random_x() {
 void Coin::hide() {
     coin_circle.hide();
 }
+
 void Coin::show() {
     coin_circle.show();
 }

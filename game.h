@@ -36,6 +36,7 @@ class Game {
     double last_coin_jump_ends[MAX_COINS];
 
     int game_mode;
+    bool lives_matter;
 
     bool magnetic;
     bool frenzy;
@@ -48,6 +49,9 @@ class Game {
 
     char game_clock_str[256];
     Text *game_clock;
+
+    char lives_str[256];
+    Text *lives;
 
     void check_command();
 
@@ -111,9 +115,15 @@ public:
         coinScore = new Text(PLAY_X_START + 75, PLAY_Y_HEIGHT + 50, coinScoreStr);
         coinScore->setColor(COLOR(BROWN));
 
-        sprintf(game_clock_str, "Time: %d / 30", (int)currTime);
+        sprintf(game_clock_str, "Time: %d / 30", (int) currTime);
         game_clock = new Text(PLAY_X_START + PLAY_X_WIDTH - 150, PLAY_Y_HEIGHT + 50, coinScoreStr);
         game_clock->setColor(COLOR(BROWN));
+
+        if (lives_matter) {
+            sprintf(lives_str, "Lives: %d / 3", lasso->get_lives());
+            lives = new Text(PLAY_X_START + PLAY_X_WIDTH - 300, PLAY_Y_HEIGHT + 50, coinScoreStr);
+            lives->setColor(COLOR(BROWN));
+        }
 
         endFrame();
     }

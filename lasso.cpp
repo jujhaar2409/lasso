@@ -55,6 +55,9 @@ void Lasso::yank(double currTime) {
                 frenzy = true;
                 frenzy_start_time = currTime;
             }
+            if (the_coin->makes_reduce_life()) {
+                lives -= 1;
+            }
             the_coin->resetCoin(magnetic, frenzy);
             the_coins[i] = nullptr;
         }
@@ -102,7 +105,7 @@ void Lasso::nextStep(double stepTime, double currTime) {
         yank(currTime);
     }
     if (magnetic && ((currTime - magnet_start_time) >= magnet_time_sec)) {
-            magnetic = false;
+        magnetic = false;
     }
     if (frenzy && ((currTime - frenzy_start_time) >= frenzy_time_sec)) {
         frenzy = false;
@@ -143,4 +146,8 @@ bool Lasso::get_magnetic() const {
 
 bool Lasso::get_frenzy() const {
     return frenzy;
+}
+
+int Lasso::get_lives() const {
+    return lives;
 }

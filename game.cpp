@@ -25,6 +25,11 @@ int Game::loop() {
         sprintf(game_clock_str, "Time: %ds / %ds", int(currTime), int(gameTime));
         game_clock->setMessage(game_clock_str);
 
+        if (lives_matter) {
+            sprintf(lives_str, "Lives: %d / 3", int(lasso->get_lives()));
+            lives->setMessage(lives_str);
+        }
+
         // renders changes all at once
         endFrame();
 
@@ -35,6 +40,7 @@ int Game::loop() {
         currTime += float(time_passed) / 1000;
 
         if (currTime > (float(gameTime) + float(time_passed) / 1000))break;
+        if (lives_matter && lasso->get_lives() == 0) break;
     } // End for(;;)
 
     showGameOver();
@@ -154,6 +160,8 @@ void Game::getGameMode() {
     closeCanvas();
     if (res == 'q') exit(0);
     else if (res <= '4' && res >= '1') game_mode = res - '0';
+    if (game_mode == 3 || game_mode == 4) lives_matter = true;
+    else lives_matter = false;
 }
 
 void Game::initGameWindow() {

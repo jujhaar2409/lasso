@@ -32,7 +32,7 @@ class Coin : public MovingObject {
     // 1: arcade
     // 2: magnetic
     // 3: bomb
-    // 4: rajni
+    // 4: mega
     int game_mode;
 
     vector<int> coin_type_prob;
@@ -77,6 +77,8 @@ public:
     bool makes_magnetic() const;
 
     bool makes_frenzy() const;
+
+    bool makes_reduce_life() const;
 
     void hide() override;
 

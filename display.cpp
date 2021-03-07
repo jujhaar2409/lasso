@@ -5,12 +5,12 @@
 char display::show_instructions() {
     beginFrame();
     vector<string> commands;
-    commands.emplace_back("+/= and -");
-    commands.emplace_back("[ and ]");
-    commands.emplace_back("t");
-    commands.emplace_back("l");
-    commands.emplace_back("y");
-    commands.emplace_back("q");
+    commands.emplace_back("'+/=' and '-'");
+    commands.emplace_back("'[' and ']'");
+    commands.emplace_back("'t'");
+    commands.emplace_back("'l'");
+    commands.emplace_back("'y'");
+    commands.emplace_back("'q'");
 
     vector<string> instructions;
     instructions.emplace_back("Increase and decrease the speed of the lasso respectively");
@@ -45,7 +45,7 @@ char display::show_instructions() {
         bool pendingEv = checkEvent(e);
         if (pendingEv) {
             c = charFromEvent(e);
-            if (c == 'n' || c=='q') {
+            if (c == 'n' || c == 'q') {
                 return c;
             }
         }
@@ -58,12 +58,14 @@ char display::show_modes() {
     modes.emplace_back("Press 1: Arcade Mode");
     modes.emplace_back("Press 2: Magnet Mode");
     modes.emplace_back("Press 3: Bomb Mode");
-    modes.emplace_back("Press 4: Rajni Mode");
+    modes.emplace_back("Press 4: Mega Mode");
 
     vector<string> rules;
-    rules.emplace_back("Collect the most number of coins that you can, remember to collect frenzy coins to win big! types of coins: regular, bonus and frenzy");
+    rules.emplace_back(
+            "Collect the most number of coins that you can, remember to collect frenzy coins to win big! types of coins: regular, bonus and frenzy");
     rules.emplace_back("Collect magnets to attract more coins! types of coins: regular, bonus, magnet");
-    rules.emplace_back("Beware of the bombs as they provide a score reduction! types of coins: regular, bonus, bomb");
+    rules.emplace_back(
+            "Beware of the bombs as they provide a score reduction and take away a life! types of coins: regular, bonus, bomb");
     rules.emplace_back(
             "Only a true braveheart should choose this mode, with both bombs and magnets, things can get dicey very fast! types of coins: ALL!!");
 
@@ -86,7 +88,7 @@ char display::show_modes() {
         bool pendingEv = checkEvent(e);
         if (pendingEv) {
             c = charFromEvent(e);
-            if (c=='q' || (c >= '1' && c <= '4')) {
+            if (c == 'q' || (c >= '1' && c <= '4')) {
                 return c;
             }
         }
@@ -107,7 +109,7 @@ char display::show_coin_types() {
     description.emplace_back("Gives a bonus point!");
     description.emplace_back("Regular old coin");
     description.emplace_back("Magnetizes your lasso for ~5s");
-    description.emplace_back("Gives a negative point, stay away!");
+    description.emplace_back("Gives a negative point and takes away a life too, stay away!");
     description.emplace_back("More number of coins to catch for ~10s!");
 
     Text text(WINDOW_X / 2.0, 50, "Lasso - Coin Types");

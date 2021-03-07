@@ -40,6 +40,8 @@ class Lasso : public MovingObject {
     const double frenzy_time_sec = 10.0;
     double frenzy_start_time;
 
+    int lives;
+
     void initLasso();
 
 public:
@@ -61,6 +63,7 @@ public:
 //        magnet_step_count = 0;
         magnet_start_time = -1;
         frenzy_start_time = -1;
+        lives = 3;
 
         initLasso();
     }
@@ -80,6 +83,8 @@ public:
     void check_for_coin(Coin *coin);
 
     int getNumCoins() const { return num_coins; }
+
+    int get_lives() const;
 
     bool get_magnetic() const;
 
