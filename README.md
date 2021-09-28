@@ -25,8 +25,7 @@ mingw32-g++.exe  -o test test test1 -lsprite -lbgi -lgdi32 -lcomdlg32 -luuid -lo
 
 ## Additions made
 
-- Coin now moves in a parabolic path at a random angle restricted between 70 to 120 degrees
-- something
-- something
-- something
-- something
+- Multiple game modes added
+- Special coins with various functionality
+- Menu for selecting game mode and instructions for playing
+- Coin now moves in a parabolic path at a random angle 
